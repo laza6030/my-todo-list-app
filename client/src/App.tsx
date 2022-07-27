@@ -1,11 +1,13 @@
+import Dashboard from "./components/Dashboard";
+
 import "./App.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>My todo list app</h1>
-    </div>
+    <>
+      <Dashboard />
+    </>
   );
-}
+};
 
 export default App;
