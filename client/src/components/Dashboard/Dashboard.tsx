@@ -6,17 +6,17 @@ import Input from "@mui/material/Input";
 
 import CustomDialog from "../common/CustomDialog";
 import Column from "./Column";
-import { useCreateColumn } from "../../hooks";
+import { useCreateColumn, useGetColumns } from "../../hooks";
 
 import { useStyles } from "./styles";
 
 const Dashboard = () => {
   const classes = useStyles();
 
-  const [columns, setColumns] = useState<string[]>(["Backlog", "Todo"]);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
 
+  const { data } = useGetColumns();
   const { mutate } = useCreateColumn();
 
   const handleOpenDialog = () => setOpenDialog((openDialog) => !openDialog);
@@ -37,8 +37,8 @@ const Dashboard = () => {
       </Button>
 
       <Grid item container>
-        {columns.map((column, item) => (
-          <Column key={column + item} name={column} />
+        {data?.getColumns?.map((column, index) => (
+          <Column key={column?.__typename! + index} name={column?.name!} />
         ))}
       </Grid>
 
