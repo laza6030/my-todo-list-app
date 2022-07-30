@@ -9,6 +9,7 @@
 
 export interface GetColumns_getColumns {
   __typename: "Column";
+  id: string;
   name: string;
 }
 

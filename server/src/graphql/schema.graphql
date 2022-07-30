@@ -1,4 +1,5 @@
 type Column {
+    id: ID!
     name: String!
 }
 

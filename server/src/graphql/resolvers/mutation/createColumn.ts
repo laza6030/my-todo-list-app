@@ -6,6 +6,5 @@ export const createColumn = async (
     { name }: MutationCreateColumnArgs
 ): Promise<Column> => {
     const column = new ColumnModel({ name })
-    await column.save()
-    return { name }
+    return await column.save()
 }
