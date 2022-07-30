@@ -12,7 +12,7 @@ export type Scalars = {
 
 export type Column = {
    __typename?: 'Column';
-  _id: Scalars['ID'];
+  id: Scalars['ID'];
   name: Scalars['String'];
 };
 
@@ -24,11 +24,17 @@ export type Query = {
 export type Mutation = {
    __typename?: 'Mutation';
   createColumn: Column;
+  deleteColumn: Scalars['Boolean'];
 };
 
 
 export type MutationCreateColumnArgs = {
   name: Scalars['String'];
+};
+
+
+export type MutationDeleteColumnArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -123,7 +129,7 @@ export type ResolversParentTypes = {
 };
 
 export type ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['Column'] = ResolversParentTypes['Column']> = {
-  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -134,6 +140,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name'>>,
+  deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>,
 };
 
 export type Resolvers<ContextType = any> = {

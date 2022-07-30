@@ -38,7 +38,11 @@ const Dashboard = () => {
 
       <Grid item container>
         {data?.getColumns?.map((column, index) => (
-          <Column key={column?.__typename! + index} name={column?.name!} />
+          <Column
+            key={column?.__typename! + index}
+            name={column?.name!}
+            id={column?.id!}
+          />
         ))}
       </Grid>
 

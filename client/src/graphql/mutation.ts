@@ -8,3 +8,9 @@ export const CREATE_COLUMN = gql`
     }
   }
 `;
+
+export const DELETE_COLUMN = gql`
+  mutation DeleteColumn($id: String!) {
+    deleteColumn(id: $id)
+  }
+`;

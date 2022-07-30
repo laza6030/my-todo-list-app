@@ -8,21 +8,23 @@ import { useStyles } from "./styles";
 
 interface IProps {
   name: string;
+  onClickEdit: () => void;
+  onClickDelete: () => void;
 }
 
 const Header = (props: IProps) => {
-  const { name } = props;
+  const { name, onClickDelete, onClickEdit } = props;
   const classes = useStyles();
 
   return (
     <Grid container alignItems="center">
       <Typography classes={{ root: classes.name }}>{name}</Typography>
 
-      <IconButton>
+      <IconButton onClick={onClickEdit}>
         <EditIcon />
       </IconButton>
 
-      <IconButton>
+      <IconButton onClick={onClickDelete}>
         <DeleteIcon />
       </IconButton>
     </Grid>
