@@ -6,6 +6,7 @@ import Input from "@mui/material/Input";
 
 import CustomDialog from "../common/CustomDialog";
 import Column from "./Column";
+import { useCreateColumn } from "../../hooks";
 
 import { useStyles } from "./styles";
 
@@ -16,6 +17,8 @@ const Dashboard = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
 
+  const { mutate } = useCreateColumn();
+
   const handleOpenDialog = () => setOpenDialog((openDialog) => !openDialog);
 
   const handleInputChange = (
@@ -23,7 +26,7 @@ const Dashboard = () => {
   ) => setInput(event.target.value);
 
   const handleSubmit = () => {
-    setColumns((columns) => [...columns, input]);
+    mutate({ variables: { name: input } });
     setInput("");
   };
 
