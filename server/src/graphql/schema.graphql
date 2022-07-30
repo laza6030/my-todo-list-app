@@ -1,0 +1,11 @@
+type Column {
+    name: String!
+}
+
+type Query {
+    getColumns: [Column]
+}
+
+type Mutation {
+    createColumn(name: String!): Column!
+}
