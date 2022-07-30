@@ -3,20 +3,31 @@ import Divider from "@mui/material/Divider";
 
 import Header from "./Header";
 
+import { GetColumns_getColumns } from "../../../graphql/__generated__/GetColumns";
+import { useDeleteColumn } from "../../../hooks";
+
 import { useStyles } from "./styles";
 
-interface IProps {
-  name: string;
-}
+interface IProps extends Omit<GetColumns_getColumns, "__typename"> {}
 
 const Column = (props: IProps) => {
-  const { name } = props;
-
+  const { id, name } = props;
   const classes = useStyles();
+  const { mutate } = useDeleteColumn();
+
+  const onClickEdit = () => {};
+
+  const onClickDelete = () => {
+    mutate({ variables: { id } });
+  };
 
   return (
     <Grid container flexDirection="column" classes={{ root: classes.root }}>
-      <Header name={name} />
+      <Header
+        name={name}
+        onClickDelete={onClickDelete}
+        onClickEdit={onClickEdit}
+      />
       <Divider />
     </Grid>
   );

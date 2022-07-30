@@ -4,15 +4,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetColumns
+// GraphQL mutation operation: DeleteColumn
 // ====================================================
 
-export interface GetColumns_getColumns {
-  __typename: "Column";
-  id: string;
-  name: string;
+export interface DeleteColumn {
+  deleteColumn: boolean;
 }
 
-export interface GetColumns {
-  getColumns: (GetColumns_getColumns | null)[] | null;
+export interface DeleteColumnVariables {
+  id: string;
 }

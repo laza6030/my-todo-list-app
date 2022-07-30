@@ -12,7 +12,8 @@ export type Scalars = {
 
 export type Column = {
    __typename?: 'Column';
-  name?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -23,11 +24,17 @@ export type Query = {
 export type Mutation = {
    __typename?: 'Mutation';
   createColumn: Column;
+  deleteColumn: Scalars['Boolean'];
 };
 
 
 export type MutationCreateColumnArgs = {
   name: Scalars['String'];
+};
+
+
+export type MutationDeleteColumnArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -104,6 +111,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Column: ResolverTypeWrapper<Column>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Query: ResolverTypeWrapper<{}>,
   Mutation: ResolverTypeWrapper<{}>,
@@ -113,6 +121,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Column: Column,
+  ID: Scalars['ID'],
   String: Scalars['String'],
   Query: {},
   Mutation: {},
@@ -120,7 +129,8 @@ export type ResolversParentTypes = {
 };
 
 export type ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['Column'] = ResolversParentTypes['Column']> = {
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -130,6 +140,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name'>>,
+  deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>,
 };
 
 export type Resolvers<ContextType = any> = {

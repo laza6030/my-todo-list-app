@@ -9,6 +9,7 @@
 
 export interface CreateColumn_createColumn {
   __typename: "Column";
+  id: string;
   name: string;
 }
 
