@@ -10,4 +10,5 @@ type Query {
 type Mutation {
     createColumn(name: String!): Column!
     deleteColumn(id: String!): Boolean!
+    renameColumn(id: String!, name: String!): Boolean!
 }

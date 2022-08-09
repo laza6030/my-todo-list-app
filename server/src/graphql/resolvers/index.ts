@@ -1,7 +1,7 @@
 import { getColumns } from './query'
-import { createColumn, deleteColumn } from './mutation'
+import { createColumn, deleteColumn, renameColumn } from './mutation'
 
 export default {
     Query: { getColumns },
-    Mutation: { createColumn, deleteColumn },
+    Mutation: { createColumn, deleteColumn, renameColumn },
 }
