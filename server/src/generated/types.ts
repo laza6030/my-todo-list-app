@@ -25,6 +25,7 @@ export type Mutation = {
    __typename?: 'Mutation';
   createColumn: Column;
   deleteColumn: Scalars['Boolean'];
+  renameColumn: Scalars['Boolean'];
 };
 
 
@@ -35,6 +36,12 @@ export type MutationCreateColumnArgs = {
 
 export type MutationDeleteColumnArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationRenameColumnArgs = {
+  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -141,6 +148,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name'>>,
   deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>,
+  renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>,
 };
 
 export type Resolvers<ContextType = any> = {

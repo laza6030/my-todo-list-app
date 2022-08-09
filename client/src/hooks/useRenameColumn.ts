@@ -1,16 +1,16 @@
 import { useMutation } from "@apollo/client";
-import { CREATE_COLUMN } from "../graphql/mutation";
+import { RENAME_COLUMN } from "../graphql/mutation";
 import { GET_COLUMNS } from "../graphql/query";
 import {
-  CreateColumn,
-  CreateColumnVariables,
-} from "../graphql/__generated__/CreateColumn";
+  RenameColumn,
+  RenameColumnVariables,
+} from "../graphql/__generated__/RenameColumn";
 
-export const useCreateColumn = () => {
+export const useRenameColumn = () => {
   const [mutate, { loading, error }] = useMutation<
-    CreateColumn,
-    CreateColumnVariables
-  >(CREATE_COLUMN, {
+    RenameColumn,
+    RenameColumnVariables
+  >(RENAME_COLUMN, {
     refetchQueries: [{ query: GET_COLUMNS }],
   });
 

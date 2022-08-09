@@ -4,7 +4,7 @@ import Divider from "@mui/material/Divider";
 import Header from "./Header";
 
 import { GetColumns_getColumns } from "../../../graphql/__generated__/GetColumns";
-import { useDeleteColumn } from "../../../hooks";
+import { useDeleteColumn, useRenameColumn } from "../../../hooks";
 
 import { useStyles } from "./styles";
 
@@ -14,8 +14,10 @@ const Column = (props: IProps) => {
   const { id, name } = props;
   const classes = useStyles();
   const { mutate } = useDeleteColumn();
+  const { mutate: renameColumn } = useRenameColumn();
 
-  const onClickEdit = () => {};
+  const onClickValidate = (name: string) =>
+    renameColumn({ variables: { id, name } });
 
   const onClickDelete = () => {
     mutate({ variables: { id } });
@@ -26,7 +28,7 @@ const Column = (props: IProps) => {
       <Header
         name={name}
         onClickDelete={onClickDelete}
-        onClickEdit={onClickEdit}
+        onClickValidate={onClickValidate}
       />
       <Divider />
     </Grid>
