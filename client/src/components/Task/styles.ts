@@ -2,9 +2,14 @@ import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles({
   root: {
-    height: 30,
+    paddingLeft: 5,
+    minHeight: 30,
     width: "100%",
     background: "#dbcaca",
     marginBottom: 5,
+  },
+
+  icon: {
+    marginLeft: "auto",
   },
 });

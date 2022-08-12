@@ -65,7 +65,12 @@ const Column = (props: IProps) => {
       <Divider classes={{ root: classes.divider }} />
 
       {data?.getTasksByColumn?.map((task) => (
-        <Task key={task?.id} name={task?.name ?? ""} />
+        <Task
+          key={task?.id}
+          id={task?.id ?? ""}
+          name={task?.name ?? ""}
+          columnId={task?.columnId ?? ""}
+        />
       ))}
 
       <Grid item>

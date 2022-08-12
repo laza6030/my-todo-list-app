@@ -14,6 +14,7 @@ export const GET_TASKS_BY_COLUMN = gql`
     getTasksByColumn(columnId: $columnId) {
       id
       name
+      columnId
     }
   }
 `;
