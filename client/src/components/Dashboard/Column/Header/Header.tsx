@@ -8,6 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
+import CustomDialog from "../../../common/CustomDialog";
+
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -21,6 +23,7 @@ const Header = (props: IProps) => {
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [value, setValue] = useState<string>(name);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const classes = useStyles();
 
@@ -32,6 +35,10 @@ const Header = (props: IProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
+  const handleOpenDialog = () => setIsOpen(true);
+
+  const handleCloseDialog = () => setIsOpen(false);
 
   return (
     <Grid container alignItems="center" classes={{ root: classes.root }}>
@@ -58,9 +65,19 @@ const Header = (props: IProps) => {
         </IconButton>
       )}
 
-      <IconButton onClick={onClickDelete}>
+      <IconButton onClick={handleOpenDialog}>
         <DeleteIcon />
       </IconButton>
+
+      {isOpen && (
+        <CustomDialog
+          onClose={handleCloseDialog}
+          onCancel={handleCloseDialog}
+          onSubmit={onClickDelete}
+          content="Do you really want to delete this column?"
+          confirmLabel="Confirm"
+        />
+      )}
     </Grid>
   );
 };

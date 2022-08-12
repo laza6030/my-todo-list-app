@@ -48,6 +48,7 @@ const Column = (props: IProps) => {
 
   const handleSubmit = () => {
     createTask({ variables: { columnId: id, name: taskName } });
+    setTaskName("");
   };
 
   return (
