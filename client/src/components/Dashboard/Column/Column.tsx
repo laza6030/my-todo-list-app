@@ -6,11 +6,16 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 
 import CustomDialog from "../../common/CustomDialog";
+import Task from "../../Task";
 import Header from "./Header";
 
 import { GetColumns_getColumns } from "../../../graphql/__generated__/GetColumns";
-import { useDeleteColumn, useRenameColumn } from "../../../hooks";
-import { useCreateTask } from "../../../hooks";
+import {
+  useDeleteColumn,
+  useRenameColumn,
+  useCreateTask,
+  useGetTasksByColumn,
+} from "../../../hooks";
 
 import { useStyles } from "./styles";
 
@@ -23,7 +28,8 @@ const Column = (props: IProps) => {
   const [taskName, setTaskName] = useState<string>("");
   const { mutate } = useDeleteColumn();
   const { mutate: renameColumn } = useRenameColumn();
-  const { mutate: createTask, loading } = useCreateTask();
+  const { mutate: createTask, loading } = useCreateTask(id);
+  const { data } = useGetTasksByColumn(id);
 
   const onClickValidate = (name: string) =>
     renameColumn({ variables: { id, name } });
@@ -57,6 +63,11 @@ const Column = (props: IProps) => {
         onClickValidate={onClickValidate}
       />
       <Divider classes={{ root: classes.divider }} />
+
+      {data?.getTasksByColumn?.map((task) => (
+        <Task key={task?.id} name={task?.name ?? ""} />
+      ))}
+
       <Grid item>
         <IconButton
           disabled={loading}
