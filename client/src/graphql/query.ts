@@ -8,3 +8,12 @@ export const GET_COLUMNS = gql`
     }
   }
 `;
+
+export const GET_TASKS_BY_COLUMN = gql`
+  query GetTasksByColumn($columnId: String!) {
+    getTasksByColumn(columnId: $columnId) {
+      id
+      name
+    }
+  }
+`;

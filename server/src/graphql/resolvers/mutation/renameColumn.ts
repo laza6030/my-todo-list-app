@@ -1,5 +1,5 @@
 import { MutationRenameColumnArgs } from '../../../generated/types'
-import ColumnModel from '../../../models/columnModels'
+import ColumnModel from '../../../models/columnModel'
 
 export const renameColumn = async (
     _,

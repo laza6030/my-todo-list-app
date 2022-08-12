@@ -1,5 +1,5 @@
 import { MutationDeleteColumnArgs } from '../../../generated/types'
-import ColumnModel from '../../../models/columnModels'
+import ColumnModel from '../../../models/columnModel'
 
 export const deleteColumn = async (_, { id }: MutationDeleteColumnArgs) => {
     try {

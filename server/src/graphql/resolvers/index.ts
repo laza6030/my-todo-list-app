@@ -1,7 +1,12 @@
-import { getColumns } from './query'
-import { createColumn, deleteColumn, renameColumn } from './mutation'
+import { getColumns, getTasksByColumn } from './query'
+import {
+    createColumn,
+    deleteColumn,
+    renameColumn,
+    createTask,
+} from './mutation'
 
 export default {
-    Query: { getColumns },
-    Mutation: { createColumn, deleteColumn, renameColumn },
+    Query: { getColumns, getTasksByColumn },
+    Mutation: { createColumn, deleteColumn, renameColumn, createTask },
 }

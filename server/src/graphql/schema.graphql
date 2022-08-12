@@ -5,10 +5,18 @@ type Column {
 
 type Query {
     getColumns: [Column]
+    getTasksByColumn(columnId: String!): [Task]
 }
 
 type Mutation {
     createColumn(name: String!): Column!
     deleteColumn(id: String!): Boolean!
     renameColumn(id: String!, name: String!): Boolean!
+    createTask(columnId: String!, name: String!): Task
+}
+
+type Task {
+    id: ID!
+    columnId: ID!
+    name: String
 }
