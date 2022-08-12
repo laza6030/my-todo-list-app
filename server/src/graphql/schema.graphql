@@ -5,6 +5,7 @@ type Column {
 
 type Query {
     getColumns: [Column]
+    getTasksByColumn(columnId: String!): [Task]
 }
 
 type Mutation {

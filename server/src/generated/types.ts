@@ -19,6 +19,12 @@ export type Column = {
 export type Query = {
    __typename?: 'Query';
   getColumns?: Maybe<Array<Maybe<Column>>>;
+  getTasksByColumn?: Maybe<Array<Maybe<Task>>>;
+};
+
+
+export type QueryGetTasksByColumnArgs = {
+  columnId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -159,6 +165,7 @@ export type ColumnResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType>,
+  getTasksByColumn?: Resolver<Maybe<Array<Maybe<ResolversTypes['Task']>>>, ParentType, ContextType, RequireFields<QueryGetTasksByColumnArgs, 'columnId'>>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
