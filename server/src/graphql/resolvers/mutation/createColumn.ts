@@ -1,5 +1,5 @@
 import { MutationCreateColumnArgs, Column } from '../../../generated/types'
-import ColumnModel from '../../../models/columnModels'
+import ColumnModel from '../../../models/columnModel'
 
 export const createColumn = async (
     _,

@@ -26,6 +26,7 @@ export type Mutation = {
   createColumn: Column;
   deleteColumn: Scalars['Boolean'];
   renameColumn: Scalars['Boolean'];
+  createTask?: Maybe<Task>;
 };
 
 
@@ -42,6 +43,19 @@ export type MutationDeleteColumnArgs = {
 export type MutationRenameColumnArgs = {
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+
+export type MutationCreateTaskArgs = {
+  columnId: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type Task = {
+   __typename?: 'Task';
+  id: Scalars['ID'];
+  columnId: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
 };
 
 
@@ -123,6 +137,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   Mutation: ResolverTypeWrapper<{}>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  Task: ResolverTypeWrapper<Task>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -133,6 +148,7 @@ export type ResolversParentTypes = {
   Query: {},
   Mutation: {},
   Boolean: Scalars['Boolean'],
+  Task: Task,
 };
 
 export type ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['Column'] = ResolversParentTypes['Column']> = {
@@ -149,12 +165,21 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name'>>,
   deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>,
   renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>,
+  createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'columnId' | 'name'>>,
+};
+
+export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  columnId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Column?: ColumnResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
+  Task?: TaskResolvers<ContextType>,
 };
 
 
