@@ -8,4 +8,13 @@ export const useStyles = makeStyles({
     padding: 10,
     borderRadius: 10,
   },
+
+  divider: {
+    width: "100%",
+  },
+
+  addButton: {
+    width: "max-content",
+    marginRight: "auto",
+  },
 });

@@ -20,3 +20,13 @@ export const RENAME_COLUMN = gql`
     renameColumn(id: $id, name: $name)
   }
 `;
+
+export const CREATE_TASK = gql`
+  mutation CreateTask($columnId: String!, $name: String!) {
+    createTask(columnId: $columnId, name: $name) {
+      id
+      name
+      columnId
+    }
+  }
+`;
