@@ -4,6 +4,7 @@ export const useStyles = makeStyles({
   root: {
     backgroundColor: "#de9595",
     width: 300,
+    height: "max-content",
     margin: 10,
     padding: 10,
     borderRadius: 10,

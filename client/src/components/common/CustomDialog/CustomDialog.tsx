@@ -7,13 +7,23 @@ import DialogContent from "@mui/material/DialogContent";
 interface IProps {
   title?: string;
   content?: React.ReactNode;
+  cancelLabel?: string;
+  confirmLabel?: string;
   onCancel?: () => void;
   onSubmit?: () => void;
   onClose?: () => void;
 }
 
 const CustomDialog = (props: IProps) => {
-  const { title, content, onCancel, onSubmit, onClose } = props;
+  const {
+    title,
+    content,
+    confirmLabel,
+    cancelLabel,
+    onCancel,
+    onSubmit,
+    onClose,
+  } = props;
 
   const handleCancel = () => {
     onCancel?.();
@@ -27,13 +37,17 @@ const CustomDialog = (props: IProps) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
+      {title && <DialogTitle>{title}</DialogTitle>}
 
-      <DialogContent>{content}</DialogContent>
+      {content && <DialogContent>{content}</DialogContent>}
 
       <DialogActions>
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleCancel}>
+          {cancelLabel ? cancelLabel : <>Cancel</>}
+        </Button>
+        <Button onClick={handleSubmit}>
+          {confirmLabel ? confirmLabel : <>Submit</>}
+        </Button>
       </DialogActions>
     </Dialog>
   );

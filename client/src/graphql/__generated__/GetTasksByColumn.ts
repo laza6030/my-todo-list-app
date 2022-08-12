@@ -11,6 +11,7 @@ export interface GetTasksByColumn_getTasksByColumn {
   __typename: "Task";
   id: string;
   name: string | null;
+  columnId: string;
 }
 
 export interface GetTasksByColumn {
