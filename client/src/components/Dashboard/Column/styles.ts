@@ -12,6 +12,7 @@ export const useStyles = makeStyles({
 
   divider: {
     width: "100%",
+    marginBottom: 10,
   },
 
   addButton: {
