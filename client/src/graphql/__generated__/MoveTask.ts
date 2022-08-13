@@ -4,21 +4,21 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateTask
+// GraphQL mutation operation: MoveTask
 // ====================================================
 
-export interface CreateTask_createTask {
+export interface MoveTask_moveTask {
   __typename: "Task";
   id: string;
   name: string;
   columnId: string;
 }
 
-export interface CreateTask {
-  createTask: CreateTask_createTask | null;
+export interface MoveTask {
+  moveTask: MoveTask_moveTask;
 }
 
-export interface CreateTaskVariables {
+export interface MoveTaskVariables {
+  taskId: string;
   columnId: string;
-  name: string;
 }

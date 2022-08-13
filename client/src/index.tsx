@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
@@ -21,7 +23,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <StyledEngineProvider injectFirst>
-        <App />
+        <DndProvider backend={HTML5Backend}>
+          <App />
+        </DndProvider>
       </StyledEngineProvider>
     </ApolloProvider>
   </React.StrictMode>

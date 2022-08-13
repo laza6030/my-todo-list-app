@@ -5,6 +5,7 @@ import {
     renameColumn,
     createTask,
     deleteTask,
+    moveTask,
 } from './mutation'
 
 export default {
@@ -15,5 +16,6 @@ export default {
         renameColumn,
         createTask,
         deleteTask,
+        moveTask,
     },
 }

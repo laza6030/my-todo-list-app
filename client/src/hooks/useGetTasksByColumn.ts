@@ -6,10 +6,10 @@ import {
 } from "../graphql/__generated__/GetTasksByColumn";
 
 export const useGetTasksByColumn = (columnId: string) => {
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, refetch } = useQuery<
     GetTasksByColumn,
     GetTasksByColumnVariables
   >(GET_TASKS_BY_COLUMN, { variables: { columnId } });
 
-  return { data, loading, error };
+  return { data, loading, error, refetch };
 };
