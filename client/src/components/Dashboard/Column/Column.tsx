@@ -29,9 +29,9 @@ const Column = (props: IProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskName, setTaskName] = useState<string>("");
-  const { mutate } = useDeleteColumn();
+  const { deleteColumn } = useDeleteColumn();
   const { mutate: renameColumn } = useRenameColumn();
-  const { mutate: createTask, loading } = useCreateTask(id);
+  const { createTask, loading } = useCreateTask(id);
   const { data, refetch } = useGetTasksByColumn(id);
   const { moveTask } = useMoveTask(id);
 
@@ -45,7 +45,7 @@ const Column = (props: IProps) => {
     renameColumn({ variables: { id, name } });
 
   const onClickDelete = () => {
-    mutate({ variables: { id } });
+    deleteColumn({ id });
   };
 
   const handleOpenDialog = () => setIsOpen(true);
@@ -57,7 +57,7 @@ const Column = (props: IProps) => {
   const handleCloseDialog = () => setIsOpen(false);
 
   const handleSubmit = () => {
-    createTask({ variables: { columnId: id, name: taskName } });
+    createTask({ columnId: id, name: taskName });
     setTaskName("");
   };
 

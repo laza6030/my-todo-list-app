@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [input, setInput] = useState<string>("");
 
   const { data } = useGetColumns();
-  const { mutate } = useCreateColumn();
+  const { createColumn } = useCreateColumn();
 
   const handleOpenDialog = () => setOpenDialog((openDialog) => !openDialog);
 
@@ -27,7 +27,7 @@ const Dashboard = () => {
   ) => setInput(event.target.value);
 
   const handleSubmit = () => {
-    mutate({ variables: { name: input } });
+    createColumn({ name: input });
     setInput("");
   };
 

@@ -14,5 +14,7 @@ export const useDeleteTask = (columnId: string) => {
     refetchQueries: [{ query: GET_TASKS_BY_COLUMN, variables: { columnId } }],
   });
 
-  return { mutate, loading, error };
+  const deleteTask = (variables: DeleteTaskVariables) => mutate({ variables });
+
+  return { deleteTask, loading, error };
 };

@@ -14,5 +14,8 @@ export const useDeleteColumn = () => {
     refetchQueries: [{ query: GET_COLUMNS }],
   });
 
-  return { mutate, loading, error };
+  const deleteColumn = (variables: DeleteColumnVariables) =>
+    mutate({ variables });
+
+  return { deleteColumn, loading, error };
 };

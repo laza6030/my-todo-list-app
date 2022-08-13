@@ -26,9 +26,9 @@ const Task = (props: IProps) => {
     end: () => refetch(),
   }));
 
-  const { mutate } = useDeleteTask(columnId);
+  const { deleteTask } = useDeleteTask(columnId);
 
-  const handleDeleteTask = () => mutate({ variables: { id } });
+  const handleDeleteTask = () => deleteTask({ id });
 
   const handleOpenDialog = () => setIsOpen(true);
 
