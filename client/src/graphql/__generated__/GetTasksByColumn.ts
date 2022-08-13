@@ -10,12 +10,12 @@
 export interface GetTasksByColumn_getTasksByColumn {
   __typename: "Task";
   id: string;
-  name: string | null;
+  name: string;
   columnId: string;
 }
 
 export interface GetTasksByColumn {
-  getTasksByColumn: (GetTasksByColumn_getTasksByColumn | null)[] | null;
+  getTasksByColumn: GetTasksByColumn_getTasksByColumn[] | null;
 }
 
 export interface GetTasksByColumnVariables {

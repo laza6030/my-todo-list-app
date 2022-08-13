@@ -18,6 +18,8 @@
     "@types/react-dom": "^18.0.6",
     "graphql": "^15.7.2",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.7.4",
@@ -28,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "download":"npx apollo service:download --endpoint=http://localhost:4000/ graphql-schema.json",
+    "download": "npx apollo service:download --endpoint=http://localhost:4000/ graphql-schema.json",
     "generate": "npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql",
     "generate:type": "npm run download && npm run generate"
   },

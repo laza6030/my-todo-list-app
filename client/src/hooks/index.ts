@@ -5,3 +5,4 @@ export * from "./useRenameColumn";
 export * from "./useCreateTask";
 export * from "./useGetTasksByColumn";
 export * from "./useDeleteTask";
+export * from "./useMoveTask";

@@ -14,6 +14,7 @@ type Mutation {
     renameColumn(id: String!, name: String!): Boolean!
     createTask(columnId: String!, name: String!): Task
     deleteTask(id: String!): Boolean
+    moveTask(taskId: String!, columnId: String!): Task!
 }
 
 type Task {

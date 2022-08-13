@@ -14,5 +14,8 @@ export const useCreateColumn = () => {
     refetchQueries: [{ query: GET_COLUMNS }],
   });
 
-  return { mutate, loading, error };
+  const createColumn = (variables: CreateColumnVariables) =>
+    mutate({ variables });
+
+  return { createColumn, loading, error };
 };

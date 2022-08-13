@@ -14,5 +14,7 @@ export const useCreateTask = (columnId: String) => {
     refetchQueries: [{ query: GET_TASKS_BY_COLUMN, variables: { columnId } }],
   });
 
-  return { mutate, loading, error };
+  const createTask = (variables: CreateTaskVariables) => mutate({ variables });
+
+  return { createTask, loading, error };
 };

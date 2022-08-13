@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { useDrop } from "react-dnd";
 import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -15,7 +16,9 @@ import {
   useRenameColumn,
   useCreateTask,
   useGetTasksByColumn,
+  useMoveTask,
 } from "../../../hooks";
+import { ItemTypes } from "../../../constants";
 
 import { useStyles } from "./styles";
 
@@ -26,16 +29,23 @@ const Column = (props: IProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskName, setTaskName] = useState<string>("");
-  const { mutate } = useDeleteColumn();
+  const { deleteColumn } = useDeleteColumn();
   const { mutate: renameColumn } = useRenameColumn();
-  const { mutate: createTask, loading } = useCreateTask(id);
-  const { data } = useGetTasksByColumn(id);
+  const { createTask, loading } = useCreateTask(id);
+  const { data, refetch } = useGetTasksByColumn(id);
+  const { moveTask } = useMoveTask(id);
+
+  const [, drop] = useDrop(() => ({
+    accept: ItemTypes.TASK,
+    drop: (item: { id: string; columnSourceId: string }) =>
+      moveTask({ taskId: item.id, columnId: id }),
+  }));
 
   const onClickValidate = (name: string) =>
     renameColumn({ variables: { id, name } });
 
   const onClickDelete = () => {
-    mutate({ variables: { id } });
+    deleteColumn({ id });
   };
 
   const handleOpenDialog = () => setIsOpen(true);
@@ -47,8 +57,12 @@ const Column = (props: IProps) => {
   const handleCloseDialog = () => setIsOpen(false);
 
   const handleSubmit = () => {
-    createTask({ variables: { columnId: id, name: taskName } });
+    createTask({ columnId: id, name: taskName });
     setTaskName("");
+  };
+
+  const handleRefetch = () => {
+    refetch();
   };
 
   return (
@@ -57,6 +71,7 @@ const Column = (props: IProps) => {
       flexDirection="column"
       alignItems="center"
       classes={{ root: classes.root }}
+      ref={drop}
     >
       <Header
         name={name}
@@ -71,6 +86,7 @@ const Column = (props: IProps) => {
           id={task?.id ?? ""}
           name={task?.name ?? ""}
           columnId={task?.columnId ?? ""}
+          refetch={handleRefetch}
         />
       ))}
 
