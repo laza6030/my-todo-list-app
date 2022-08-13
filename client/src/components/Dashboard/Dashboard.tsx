@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
@@ -31,12 +32,8 @@ const Dashboard = () => {
   };
 
   return (
-    <Grid classes={{ root: classes.root }}>
-      <Button variant="contained" onClick={handleOpenDialog}>
-        Add New column
-      </Button>
-
-      <Grid item container>
+    <Grid container classes={{ root: classes.root }}>
+      <Grid item container flexWrap="nowrap" width="auto">
         {data?.getColumns?.map((column, index) => (
           <Column
             key={column?.__typename! + index}
@@ -44,6 +41,15 @@ const Dashboard = () => {
             id={column?.id!}
           />
         ))}
+
+        <Button
+          variant="contained"
+          onClick={handleOpenDialog}
+          classes={{ root: classes.button }}
+          startIcon={<AddCircleIcon />}
+        >
+          Add New column
+        </Button>
       </Grid>
 
       {openDialog && (

@@ -24,6 +24,7 @@ const Header = (props: IProps) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [value, setValue] = useState<string>(name);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
 
   const classes = useStyles();
 
@@ -41,7 +42,13 @@ const Header = (props: IProps) => {
   const handleCloseDialog = () => setIsOpen(false);
 
   return (
-    <Grid container alignItems="center" classes={{ root: classes.root }}>
+    <Grid
+      container
+      alignItems="center"
+      onMouseEnter={() => setShowDelete(true)}
+      onMouseLeave={() => setShowDelete(false)}
+      classes={{ root: classes.root }}
+    >
       {isEditMode ? (
         <TextField
           value={value}
@@ -65,9 +72,11 @@ const Header = (props: IProps) => {
         </IconButton>
       )}
 
-      <IconButton onClick={handleOpenDialog}>
-        <DeleteIcon />
-      </IconButton>
+      {showDelete && (
+        <IconButton onClick={handleOpenDialog}>
+          <DeleteIcon />
+        </IconButton>
+      )}
 
       {isOpen && (
         <CustomDialog
