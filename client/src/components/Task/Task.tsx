@@ -15,6 +15,7 @@ const Task = (props: IProps) => {
   const classes = useStyles();
   const { id, name, columnId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
 
   const { mutate } = useDeleteTask(columnId);
 
@@ -28,13 +29,17 @@ const Task = (props: IProps) => {
     <Grid
       container
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
+      onMouseEnter={() => setShowDelete(true)}
+      onMouseLeave={() => setShowDelete(false)}
       classes={{ root: classes.root }}
     >
       {name}
-      <IconButton onClick={handleOpenDialog} classes={{ root: classes.icon }}>
-        <DeleteIcon />
-      </IconButton>
+      {showDelete && (
+        <IconButton onClick={handleOpenDialog} classes={{ root: classes.icon }}>
+          <DeleteIcon />
+        </IconButton>
+      )}
 
       {isOpen && (
         <CustomDialog
