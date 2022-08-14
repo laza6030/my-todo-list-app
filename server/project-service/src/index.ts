@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server'
+import { buildSubgraphSchema } from '@apollo/subgraph'
 import mongoose from 'mongoose'
 require('dotenv').config()
 
@@ -18,8 +19,10 @@ db.on('error', () => console.log('error'))
 db.once('open', () => console.log('connected to the database'))
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema: buildSubgraphSchema({
+        typeDefs,
+        resolvers,
+    }),
 })
 
 server.listen().then(({ url }) => {
