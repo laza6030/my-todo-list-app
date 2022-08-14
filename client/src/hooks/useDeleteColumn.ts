@@ -5,13 +5,17 @@ import {
   DeleteColumn,
   DeleteColumnVariables,
 } from "../graphql/__generated__/DeleteColumn";
+import { useDisplayer } from "./useDisplayer";
 
 export const useDeleteColumn = () => {
+  const { displaySuccess, displayError } = useDisplayer();
   const [mutate, { loading, error }] = useMutation<
     DeleteColumn,
     DeleteColumnVariables
   >(DELETE_COLUMN, {
     refetchQueries: [{ query: GET_COLUMNS }],
+    onCompleted: () => displaySuccess("Column deleted successfully"),
+    onError: () => displayError("Error when deleting column"),
   });
 
   const deleteColumn = (variables: DeleteColumnVariables) =>

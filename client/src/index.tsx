@@ -5,6 +5,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { SnackbarProvider } from "notistack";
 
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
@@ -24,7 +25,9 @@ root.render(
     <ApolloProvider client={client}>
       <StyledEngineProvider injectFirst>
         <DndProvider backend={HTML5Backend}>
-          <App />
+          <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
+            <App />
+          </SnackbarProvider>
         </DndProvider>
       </StyledEngineProvider>
     </ApolloProvider>
