@@ -1,9 +1,10 @@
 import { ApolloServer } from 'apollo-server'
+import { buildSubgraphSchema } from '@apollo/subgraph'
 import mongoose from 'mongoose'
 require('dotenv').config()
 
 import resolvers from './graphql/resolvers'
-import { MONGODB_URI } from './config'
+import { MONGODB_URI, PORT } from './config'
 
 import 'graphql-import-node'
 
@@ -18,10 +19,12 @@ db.on('error', () => console.log('error'))
 db.once('open', () => console.log('connected to the database'))
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema: buildSubgraphSchema({
+        typeDefs,
+        resolvers,
+    }),
 })
 
-server.listen().then(({ url }) => {
+server.listen({ port: PORT }).then(({ url }) => {
     console.log(`server running at ${url}`)
 })
