@@ -5,7 +5,7 @@ import config from "../config";
 
 const gateway = new ApolloGateway({
   supergraphSdl: new IntrospectAndCompose({
-    subgraphs: [{ name: "project", url: "http://localhost:4000/graphql" }],
+    subgraphs: [{ name: "project", url: "http://localhost:4001/graphql" }],
   }),
 });
 
