@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { SnackbarProvider } from "notistack";
@@ -25,9 +26,11 @@ root.render(
     <ApolloProvider client={client}>
       <StyledEngineProvider injectFirst>
         <DndProvider backend={HTML5Backend}>
-          <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
-            <App />
-          </SnackbarProvider>
+          <BrowserRouter>
+            <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
+              <App />
+            </SnackbarProvider>
+          </BrowserRouter>
         </DndProvider>
       </StyledEngineProvider>
     </ApolloProvider>
