@@ -17,6 +17,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "graphql": "^15.7.2",
+    "notistack": "^2.0.5",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
