@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 require('dotenv').config()
 
 import resolvers from './graphql/resolvers'
-import { MONGODB_URI } from './config'
+import { MONGODB_URI, PORT } from './config'
 
 import 'graphql-import-node'
 
@@ -25,6 +25,6 @@ const server = new ApolloServer({
     }),
 })
 
-server.listen().then(({ url }) => {
+server.listen({ port: PORT }).then(({ url }) => {
     console.log(`server running at ${url}`)
 })
