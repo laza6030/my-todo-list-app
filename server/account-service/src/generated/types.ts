@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -17,12 +18,18 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  signUp?: Maybe<Scalars['String']>;
+  signIn: Scalars['String'];
+  signUp: User;
+};
+
+
+export type MutationSignInArgs = {
+  input: UserInput;
 };
 
 
 export type MutationSignUpArgs = {
-  input?: InputMaybe<SignUpInput>;
+  input: UserInput;
 };
 
 export type Query = {
@@ -31,9 +38,16 @@ export type Query = {
   hello?: Maybe<Scalars['String']>;
 };
 
-export type SignUpInput = {
-  name?: InputMaybe<Scalars['String']>;
+export type User = {
+  __typename?: 'User';
+  id?: Maybe<Scalars['ID']>;
+  password?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type UserInput = {
   password?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
 export type _Service = {
@@ -111,10 +125,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  SignUpInput: SignUpInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  User: ResolverTypeWrapper<User>;
+  UserInput: UserInput;
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _FieldSet: ResolverTypeWrapper<Scalars['_FieldSet']>;
   _Service: ResolverTypeWrapper<_Service>;
@@ -123,10 +139,12 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  ID: Scalars['ID'];
   Mutation: {};
   Query: {};
-  SignUpInput: SignUpInput;
   String: Scalars['String'];
+  User: User;
+  UserInput: UserInput;
   _Any: Scalars['_Any'];
   _FieldSet: Scalars['_FieldSet'];
   _Service: _Service;
@@ -168,12 +186,20 @@ export type TagDirectiveArgs = {
 export type TagDirectiveResolver<Result, Parent, ContextType = any, Args = TagDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  signUp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<MutationSignUpArgs>>;
+  signIn?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
+  signUp?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface _AnyScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['_Any'], any> {
@@ -192,6 +218,7 @@ export type _ServiceResolvers<ContextType = any, ParentType extends ResolversPar
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
   _Any?: GraphQLScalarType;
   _FieldSet?: GraphQLScalarType;
   _Service?: _ServiceResolvers<ContextType>;

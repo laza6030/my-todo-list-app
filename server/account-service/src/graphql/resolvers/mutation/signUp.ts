@@ -3,10 +3,10 @@ import UserModel from "../../../models/userModel";
 
 export const signUp = async (
   _,
-  { input: { name, password } }: MutationSignUpArgs
+  { input: { username, password } }: MutationSignUpArgs
 ) => {
   try {
-    const user = new UserModel({ name, password });
+    const user = new UserModel({ username, password });
     return await user.save();
   } catch (error) {
     console.error(error);

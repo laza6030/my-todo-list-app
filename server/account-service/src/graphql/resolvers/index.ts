@@ -1,5 +1,5 @@
-import { signUp } from "./mutation";
+import { signUp, signIn } from "./mutation";
 
 export default {
-  Mutation: { signUp },
+  Mutation: { signUp, signIn },
 };

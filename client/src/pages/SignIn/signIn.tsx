@@ -5,10 +5,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-import { useSignUp } from "../../hooks";
+import { useSignIn } from "../../hooks";
+
 import { useStyles } from "./styles";
 
-const SignUp = () => {
+const SignIn = () => {
   const classes = useStyles();
 
   const [identifier, setIdentifier] = useState<{
@@ -16,18 +17,14 @@ const SignUp = () => {
     password: string;
   }>({ username: "", password: "" });
 
-  const { signUp } = useSignUp();
+  const { signIn } = useSignIn();
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) =>
     setIdentifier({ ...identifier, [event.target.name]: event.target.value });
 
-  const onRegister = () => {
-    signUp({
-      input: { ...identifier },
-    });
-  };
+  const handleSignIn = () => signIn({ input: { ...identifier } });
 
   return (
     <Grid
@@ -46,7 +43,7 @@ const SignUp = () => {
         <TextField
           name="username"
           onChange={onChange}
-          placeholder="Just pick a cool username ;)"
+          placeholder="Enter your username :D"
         />
       </Grid>
 
@@ -55,19 +52,19 @@ const SignUp = () => {
         <TextField
           name="password"
           onChange={onChange}
-          placeholder="Choose anything you want"
+          placeholder="Your password goes here..."
           type="password"
         />
       </Grid>
 
       <Button
         disabled={!identifier.username || !identifier.password}
-        onClick={onRegister}
+        onClick={handleSignIn}
       >
-        Register
+        Log in
       </Button>
     </Grid>
   );
 };
 
-export default SignUp;
+export default SignIn;
