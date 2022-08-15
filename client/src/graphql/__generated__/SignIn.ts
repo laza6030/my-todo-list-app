@@ -6,19 +6,13 @@
 import { UserInput } from "./../../../__generated__/globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: SignUp
+// GraphQL mutation operation: SignIn
 // ====================================================
 
-export interface SignUp_signUp {
-  __typename: "User";
-  id: string | null;
-  username: string | null;
+export interface SignIn {
+  signIn: string;
 }
 
-export interface SignUp {
-  signUp: SignUp_signUp;
-}
-
-export interface SignUpVariables {
+export interface SignInVariables {
   input: UserInput;
 }

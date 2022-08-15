@@ -25,6 +25,7 @@
     "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
     "graphql-import-node": "0.0.5",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.2"
   }
 }
