@@ -46,3 +46,12 @@ export const MOVE_TASK = gql`
     }
   }
 `;
+
+export const SIGN_UP = gql`
+  mutation SignUp($input: SignUpInput) {
+    signUp(input: $input) {
+      id
+      name
+    }
+  }
+`;

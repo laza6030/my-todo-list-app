@@ -1,11 +1,11 @@
-import { Document, ObjectId } from 'mongoose'
+import { ObjectId } from 'mongoose'
 
-export interface IColumn extends Document {
+export interface IColumn {
     id: string
     name: string
 }
 
-export interface ITask extends Document {
+export interface ITask {
     id: string
     name: string
     columnId: ObjectId

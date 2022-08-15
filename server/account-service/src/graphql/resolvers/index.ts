@@ -1,5 +1,5 @@
-import { hello } from "./query";
+import { signUp } from "./mutation";
 
 export default {
-  Query: { hello },
+  Mutation: { signUp },
 };
