@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
+import { useSignUp } from "../../hooks";
 import { useStyles } from "./styles";
 
 const SignUp = () => {
@@ -15,10 +16,18 @@ const SignUp = () => {
     password: string;
   }>({ username: "", password: "" });
 
+  const { signUp } = useSignUp();
+
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) =>
     setIdentifier({ ...identifier, [event.target.name]: event.target.value });
+
+  const onRegister = () => {
+    signUp({
+      input: { name: identifier.username, password: identifier.password },
+    });
+  };
 
   return (
     <Grid
@@ -51,7 +60,12 @@ const SignUp = () => {
         />
       </Grid>
 
-      <Button>Register</Button>
+      <Button
+        disabled={!identifier.username || !identifier.password}
+        onClick={onRegister}
+      >
+        Register
+      </Button>
     </Grid>
   );
 };

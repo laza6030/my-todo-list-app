@@ -77,41 +77,21 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Query",
+        "name": "Mutation",
         "description": null,
         "specifiedByUrl": null,
         "fields": [
           {
-            "name": "getColumns",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Column",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "getTasksByColumn",
+            "name": "signUp",
             "description": null,
             "args": [
               {
-                "name": "columnId",
+                "name": "input",
                 "description": null,
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
+                  "kind": "INPUT_OBJECT",
+                  "name": "SignUpInput",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -119,33 +99,13 @@
               }
             ],
             "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Task",
-                  "ofType": null
-                }
-              }
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Mutation",
-        "description": null,
-        "specifiedByUrl": null,
-        "fields": [
+          },
           {
             "name": "createColumn",
             "description": null,
@@ -403,6 +363,119 @@
       },
       {
         "kind": "OBJECT",
+        "name": "Query",
+        "description": null,
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "hello",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getColumns",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Column",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getTasksByColumn",
+            "description": null,
+            "args": [
+              {
+                "name": "columnId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Task",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SignUpInput",
+        "description": null,
+        "specifiedByUrl": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "password",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Task",
         "description": null,
         "specifiedByUrl": null,
@@ -451,6 +524,54 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "User",
+        "description": null,
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "password",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1461,7 +1582,7 @@
       },
       {
         "name": "specifiedBy",
-        "description": "Exposes a URL that specifies the behaviour of this scalar.",
+        "description": "Exposes a URL that specifies the behavior of this scalar.",
         "isRepeatable": false,
         "locations": [
           "SCALAR"
@@ -1469,7 +1590,7 @@
         "args": [
           {
             "name": "url",
-            "description": "The URL that specifies the behaviour of this scalar.",
+            "description": "The URL that specifies the behavior of this scalar.",
             "type": {
               "kind": "NON_NULL",
               "name": null,

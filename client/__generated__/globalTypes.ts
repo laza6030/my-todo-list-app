@@ -7,6 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface SignUpInput {
+  name?: string | null;
+  password?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
