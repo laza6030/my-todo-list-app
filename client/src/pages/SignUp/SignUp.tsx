@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,6 +9,17 @@ import { useStyles } from "./styles";
 
 const SignUp = () => {
   const classes = useStyles();
+
+  const [identifier, setIdentifier] = useState<{
+    username: string;
+    password: string;
+  }>({ username: "", password: "" });
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) =>
+    setIdentifier({ ...identifier, [event.target.name]: event.target.value });
+
   return (
     <Grid
       container
@@ -21,12 +34,21 @@ const SignUp = () => {
 
       <Grid item classes={{ root: classes.formItem }}>
         <Typography>Username:</Typography>
-        <TextField placeholder="Just pick a cool username ;)" />
+        <TextField
+          name="username"
+          onChange={onChange}
+          placeholder="Just pick a cool username ;)"
+        />
       </Grid>
 
       <Grid item classes={{ root: classes.formItem }}>
         <Typography>Password:</Typography>
-        <TextField placeholder="Choose anything you want" />
+        <TextField
+          name="password"
+          onChange={onChange}
+          placeholder="Choose anything you want"
+          type="password"
+        />
       </Grid>
 
       <Button>Register</Button>
