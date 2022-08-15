@@ -10,7 +10,10 @@ export const useSignIn = () => {
     SIGN_IN,
     {
       onCompleted: (data: SignIn) => {
-        if (data.signIn) localStorage.setItem("token", data.signIn);
+        if (data.signIn) {
+          localStorage.setItem("token", data.signIn);
+          window.location.reload();
+        }
       },
 
       onError: () => displayError("Error when logging..."),
