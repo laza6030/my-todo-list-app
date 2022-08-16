@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -40,7 +41,6 @@ const SignUp = () => {
       <Typography variant="h5" classes={{ root: classes.title }}>
         Welcome to my-todo-list app
       </Typography>
-
       <Grid item classes={{ root: classes.formItem }}>
         <Typography>Username:</Typography>
         <TextField
@@ -49,7 +49,6 @@ const SignUp = () => {
           placeholder="Just pick a cool username ;)"
         />
       </Grid>
-
       <Grid item classes={{ root: classes.formItem }}>
         <Typography>Password:</Typography>
         <TextField
@@ -59,13 +58,17 @@ const SignUp = () => {
           type="password"
         />
       </Grid>
-
       <Button
         disabled={!identifier.username || !identifier.password}
         onClick={onRegister}
       >
         Register
       </Button>
+
+      <Typography>
+        You already have an account?&nbsp;
+        <Link to="/sign-in">Go to sign in page</Link>
+      </Typography>
     </Grid>
   );
 };

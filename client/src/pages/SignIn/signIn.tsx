@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -63,6 +64,10 @@ const SignIn = () => {
       >
         Log in
       </Button>
+
+      <Typography>
+        Want to register? <Link to="/sign-up">Sign up</Link>
+      </Typography>
     </Grid>
   );
 };
