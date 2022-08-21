@@ -14,7 +14,7 @@ export const useDeleteTask = (columnId: string) => {
     DeleteTaskVariables
   >(DELETE_TASK, {
     refetchQueries: [{ query: GET_TASKS_BY_COLUMN, variables: { columnId } }],
-    onCompleted: () => displaySuccess("Task deleted successfully"),
+    onCompleted: () => displaySuccess("Deleted"),
     onError: () => displayError("Error when deleting task"),
   });
 
