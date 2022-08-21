@@ -3,8 +3,27 @@ services:
   mongodb_container:
     image: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongo_data:/data/db
+  account_service:
+    build: ./server/account-service
+    ports:
+      - "4002:4002"
+    depends_on:
+      - mongodb_container
+  project_service:
+    build: ./server/project-service
+    ports:
+      - "4001:4001"
+    depends_on:
+      - mongodb_container
+  federated_gateway:
+    build: ./server/federated-gateway
+    ports:
+      - "4000:4000"
+    depends_on:
+      - account_service
+      - project_service
 volumes:
   mongo_data:
