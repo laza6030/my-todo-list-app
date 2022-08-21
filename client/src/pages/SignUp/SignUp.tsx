@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
+import { isUserConnected } from "../../helpers";
 import { useSignUp } from "../../hooks";
 import { useStyles } from "./styles";
 
 const SignUp = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [identifier, setIdentifier] = useState<{
     username: string;
@@ -18,6 +20,10 @@ const SignUp = () => {
   }>({ username: "", password: "" });
 
   const { signUp } = useSignUp();
+
+  if (isUserConnected()) {
+    navigate("/dashboard");
+  }
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
