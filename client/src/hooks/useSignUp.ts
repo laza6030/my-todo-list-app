@@ -9,8 +9,8 @@ export const useSignUp = () => {
   const [mutate, { loading, error }] = useMutation<SignUp, SignUpVariables>(
     SIGN_UP,
     {
-      onError: () => displayError("Error when registrating"),
-      onCompleted: () => displaySuccess("Registrated"),
+      onError: () => displayError("Error when registrating..."),
+      onCompleted: () => displaySuccess("Registrated..."),
     }
   );
 

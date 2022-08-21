@@ -1,12 +1,14 @@
 import { MutationSignUpArgs } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
+import { hashPassword } from "../../../helpers/hashPassword";
 
 export const signUp = async (
   _,
   { input: { username, password } }: MutationSignUpArgs
 ) => {
   try {
-    const user = new UserModel({ username, password });
+    const hashedPassword = await hashPassword(password);
+    const user = new UserModel({ username, password: hashedPassword });
     return await user.save();
   } catch (error) {
     console.error(error);
