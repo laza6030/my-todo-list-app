@@ -1,11 +1,10 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "@mui/material/IconButton";
 import AppBar from "@mui/material/AppBar";
-import Grid from "@mui/material/Grid";
 
 import { useStyles } from "./styles";
 
-const Home = () => {
+const Header = () => {
   const classes = useStyles();
 
   const handleLogout = () => {
@@ -14,14 +13,12 @@ const Home = () => {
   };
 
   return (
-    <Grid>
-      <AppBar>
-        <IconButton onClick={handleLogout} classes={{ root: classes.button }}>
-          <LogoutIcon />
-        </IconButton>
-      </AppBar>
-    </Grid>
+    <AppBar classes={{ root: classes.appBar }}>
+      <IconButton onClick={handleLogout} classes={{ root: classes.button }}>
+        <LogoutIcon />
+      </IconButton>
+    </AppBar>
   );
 };
 
-export default Home;
+export default Header;
