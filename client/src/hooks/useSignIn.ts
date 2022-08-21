@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import { SIGN_IN } from "../graphql/mutation";
 import { SignIn, SignInVariables } from "../graphql/__generated__/SignIn";
+import { APOLLO_ERROR_CODE } from "../constants";
 import { useDisplayer } from "./useDisplayer";
 
 export const useSignIn = () => {
@@ -14,12 +15,19 @@ export const useSignIn = () => {
       onCompleted: (data: SignIn) => {
         if (data.signIn) {
           localStorage.setItem("token", data.signIn);
-          navigate("/home");
+          navigate("/dashboard");
           window.location.reload();
         }
       },
 
-      onError: () => displayError("Error when logging..."),
+      onError: (error: ApolloError) => {
+        if (
+          error.graphQLErrors[0].extensions.code ===
+          APOLLO_ERROR_CODE.USER_NOT_FOUND
+        ) {
+          displayError("User not found...");
+        } else displayError("Error when logging...");
+      },
     }
   );
 
