@@ -3,13 +3,15 @@ import { MutationSignInArgs } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
 import { IUser } from "../../../interface";
 import { JWT_SECRET_KEY } from "../../../config";
-import { UserNotFoundError } from "../../../helpers/error";
+import { UserNotFoundError, hashPassword } from "../../../helpers";
 
 export const signIn = async (
   _,
   { input: { username, password } }: MutationSignInArgs
 ) => {
-  const user: IUser = await UserModel.findOne({ username, password });
+  const hashedPassword = await hashPassword(password);
+
+  const user: IUser = await UserModel.findOne({ username, hashedPassword });
 
   if (!user) {
     throw new UserNotFoundError();

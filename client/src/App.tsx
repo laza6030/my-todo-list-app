@@ -7,22 +7,20 @@ import SignIn from "./pages/SignIn";
 
 import "./App.css";
 
-const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<SignUp />} />
-      <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/sign-in" element={<SignIn />} />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
-    </Routes>
-  );
-};
+const App = () => (
+  <Routes>
+    <Route path="/" element={<SignUp />} />
+    <Route path="/sign-up" element={<SignUp />} />
+    <Route path="/sign-in" element={<SignIn />} />
+    <Route
+      path="/dashboard"
+      element={
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      }
+    />
+  </Routes>
+);
 
 export default App;
