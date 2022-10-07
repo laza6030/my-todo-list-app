@@ -1,6 +1,6 @@
 import { MutationSignUpArgs } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
-import { hashPassword } from "../../../helpers/hashPassword";
+import { hashPassword } from "../../../helpers";
 
 export const signUp = async (
   _,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -21,9 +21,11 @@ const SignUp = () => {
 
   const { signUp } = useSignUp();
 
-  if (isUserConnected()) {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (isUserConnected()) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
