@@ -6,6 +6,7 @@ import {
     createTask,
     deleteTask,
     moveTask,
+    createWorkspace,
 } from './mutation'
 
 export default {
@@ -17,5 +18,6 @@ export default {
         createTask,
         deleteTask,
         moveTask,
+        createWorkspace,
     },
 }
