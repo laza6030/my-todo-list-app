@@ -8,6 +8,7 @@ import Input from "@mui/material/Input";
 import CustomDialog from "../common/CustomDialog";
 import Header from "../Header";
 import Column from "../Column";
+import WorkspaceMenu from "../WorkspaceMenu";
 import { useCreateColumn, useGetColumns } from "../../hooks";
 
 import { useStyles } from "./styles";
@@ -35,6 +36,7 @@ const Dashboard = () => {
   return (
     <Grid container classes={{ root: classes.root }}>
       <Header />
+      <WorkspaceMenu />
       <Grid item container flexWrap="nowrap" width="auto">
         {data?.getColumns?.map((column, index) => (
           <Column
