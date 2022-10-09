@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-import CustomDialog from "../../../common/CustomDialog";
+import CustomDialog from "../../common/CustomDialog";
 
 import { useStyles } from "./styles";
 

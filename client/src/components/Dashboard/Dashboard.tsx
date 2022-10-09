@@ -7,7 +7,7 @@ import Input from "@mui/material/Input";
 
 import CustomDialog from "../common/CustomDialog";
 import Header from "../Header";
-import Column from "./Column";
+import Column from "../Column";
 import { useCreateColumn, useGetColumns } from "../../hooks";
 
 import { useStyles } from "./styles";
