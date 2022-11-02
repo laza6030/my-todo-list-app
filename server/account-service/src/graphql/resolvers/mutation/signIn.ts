@@ -3,7 +3,11 @@ import { MutationSignInArgs } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
 import { IUser } from "../../../interface";
 import { JWT_SECRET_KEY } from "../../../config";
-import { UserNotFoundError, hashPassword } from "../../../helpers";
+import {
+  UserNotFoundError,
+  WrongPasswordError,
+  hashPassword,
+} from "../../../helpers";
 
 export const signIn = async (
   _,
@@ -13,11 +17,14 @@ export const signIn = async (
 
   const user: IUser = await UserModel.findOne({
     username,
-    password: hashedPassword,
   });
 
   if (!user) {
     throw new UserNotFoundError();
+  }
+
+  if (user.password !== hashedPassword) {
+    throw new WrongPasswordError();
   }
 
   if (user) {

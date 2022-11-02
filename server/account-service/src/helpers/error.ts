@@ -7,3 +7,11 @@ export class UserNotFoundError extends ApolloError {
     Object.defineProperty(this, "name", { value: "UserNotFoundError" });
   }
 }
+
+export class WrongPasswordError extends ApolloError {
+  constructor(message?: string) {
+    super(message, "WRONG_PASSWORD");
+
+    Object.defineProperty(this, "name", { value: "WrongPasswordError" });
+  }
+}
