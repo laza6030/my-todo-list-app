@@ -1,20 +1,15 @@
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { MutationSignInArgs } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
 import { IUser } from "../../../interface";
 import { JWT_SECRET_KEY } from "../../../config";
-import {
-  UserNotFoundError,
-  WrongPasswordError,
-  hashPassword,
-} from "../../../helpers";
+import { UserNotFoundError, WrongPasswordError } from "../../../helpers";
 
 export const signIn = async (
   _,
   { input: { username, password } }: MutationSignInArgs
 ) => {
-  const hashedPassword = await hashPassword(password);
-
   const user: IUser = await UserModel.findOne({
     username,
   });
@@ -23,7 +18,10 @@ export const signIn = async (
     throw new UserNotFoundError();
   }
 
-  if (user.password !== hashedPassword) {
+  // Check password
+  const match = await bcrypt.compare(password, user.password);
+
+  if (!match) {
     throw new WrongPasswordError();
   }
 
