@@ -11,7 +11,10 @@ export const signIn = async (
 ) => {
   const hashedPassword = await hashPassword(password);
 
-  const user: IUser = await UserModel.findOne({ username, hashedPassword });
+  const user: IUser = await UserModel.findOne({
+    username,
+    password: hashedPassword,
+  });
 
   if (!user) {
     throw new UserNotFoundError();
