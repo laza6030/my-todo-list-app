@@ -2,7 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  ApolloLink,
+} from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -12,8 +18,22 @@ import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./index.css";
 
+const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
+
+const authLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem("token");
+
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+
+  return forward(operation);
+});
+
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
