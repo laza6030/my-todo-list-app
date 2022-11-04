@@ -6,6 +6,7 @@ const config: Config.InitialOptions = {
   transform: {
     "^.+\\.graphql$": "graphql-import-node/jest",
   },
+  modulePathIgnorePatterns: ["src/__tests__/utils"],
 };
 
 export default config;
