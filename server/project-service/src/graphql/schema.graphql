@@ -6,6 +6,7 @@ type Column {
 type Query {
     getColumns: [Column]
     getTasksByColumn(columnId: String!): [Task!]
+    getWorkspace(userId: String!): [Workspace]!
 }
 
 type Mutation {
@@ -27,4 +28,5 @@ type Task {
 type Workspace {
     id: ID!
     name: String!
+    userId: String!
 }

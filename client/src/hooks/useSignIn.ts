@@ -29,6 +29,7 @@ export const useSignIn = () => {
           case APOLLO_ERROR_CODE.WRONG_PASSWORD:
             displayError("Wrong password, please try again...");
             break;
+
           default:
             displayError("Error when logging...");
             break;

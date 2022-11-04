@@ -26,12 +26,18 @@ export type Query = {
   __typename?: 'Query';
   getColumns?: Maybe<Array<Maybe<Column>>>;
   getTasksByColumn?: Maybe<Array<Task>>;
+  getWorkspace: Array<Maybe<Workspace>>;
   _service: _Service;
 };
 
 
 export type QueryGetTasksByColumnArgs = {
   columnId: Scalars['String'];
+};
+
+
+export type QueryGetWorkspaceArgs = {
+  userId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -95,6 +101,7 @@ export type Workspace = {
   __typename?: 'Workspace';
   id: Scalars['ID'];
   name: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type _Service = {
@@ -208,6 +215,7 @@ export type ColumnResolvers<ContextType = any, ParentType extends ResolversParen
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType>;
   getTasksByColumn?: Resolver<Maybe<Array<ResolversTypes['Task']>>, ParentType, ContextType, RequireFields<QueryGetTasksByColumnArgs, 'columnId'>>;
+  getWorkspace?: Resolver<Array<Maybe<ResolversTypes['Workspace']>>, ParentType, ContextType, RequireFields<QueryGetWorkspaceArgs, 'userId'>>;
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
 };
 
@@ -231,6 +239,7 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
 export type WorkspaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Workspace'] = ResolversParentTypes['Workspace']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

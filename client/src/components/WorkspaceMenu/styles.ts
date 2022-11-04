@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 export const useStyles = makeStyles({
   root: {
     background: "#f6e0b5",
-    width: 150,
+    width: 190,
     marginTop: 10,
   },
 
