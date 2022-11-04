@@ -1,20 +1,44 @@
-// https://medium.com/entria/testing-a-graphql-server-using-jest-4e00d0e4980e
-// https://medium.com/javascript-in-plain-english/jest-mock-for-unit-testing-mern-backend-983c1e3fef83
-
+require("dotenv").config();
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
 import { ApolloServer } from "apollo-server";
-import { createTestClient } from "apollo-server-testing";
+import "graphql-import-node";
 
-import { connect, clearDatabase, closeDatabase } from "./db";
-import { signUp } from "../graphql/resolvers/mutation";
+import typeDefs from "../graphql/schema.graphql";
+import resolvers from "../graphql/resolvers";
 
-beforeAll(async () => await connect());
-afterEach(async () => await clearDatabase());
-afterAll(async () => await closeDatabase());
+import UserModel from "../models/userModel";
 
-const server = new ApolloServer({});
+import { hashPassword } from "../helpers";
 
-describe("create a user", () => {
-  it("should create a user", async () => {
-    // const user = await signUp(, )
+const server = new ApolloServer({ typeDefs, resolvers });
+
+describe("sign in", () => {
+  it("should return a token", async () => {
+    const mongod = await MongoMemoryServer.create();
+
+    const uri = mongod.getUri();
+
+    await mongoose.connect(uri, { dbName: "jest_test" });
+
+    const hashedPassword = await hashPassword("roottoor");
+
+    const user = new UserModel({
+      username: "laza",
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    const result = await server.executeOperation({
+      query: `mutation SignIn($input: UserInput!) {
+          signIn(input: $input)
+        }`,
+      variables: { input: { username: "laza", password: "roottoor" } },
+    });
+
+    expect(result.data).toBeTruthy();
+
+    await mongoose.disconnect();
   });
 });
