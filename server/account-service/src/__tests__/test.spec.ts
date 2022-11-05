@@ -11,7 +11,7 @@ import UserModel from "../models/userModel";
 
 import { hashPassword } from "../helpers";
 
-import { SIGN_IN, SIGN_UP } from "./utils/queryString";
+import { SIGN_IN, SIGN_UP } from "./utils";
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
