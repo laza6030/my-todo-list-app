@@ -8,7 +8,7 @@ export const signUp = async (
 ) => {
   const user = await UserModel.find({ username });
 
-  if (user) throw new Error("User already exists");
+  if (user.length) throw new Error("User already exists");
 
   const hashedPassword = await hashPassword(password);
   const newUser = new UserModel({ username, password: hashedPassword });

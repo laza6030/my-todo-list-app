@@ -11,3 +11,12 @@ export const SIGN_UP = `
         }
     }
 `;
+
+export const GET_USER = `
+    query GetUser($token: String!) {
+        getUser(token: $token) {
+            id
+            username
+        }
+    }
+`;
