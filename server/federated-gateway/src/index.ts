@@ -27,7 +27,6 @@ const gateway = new ApolloGateway({
 const server = new ApolloServer({
   gateway,
   context: ({ req }) => {
-    console.log(req.headers);
     return {
       "x-user-id": "Laza Nantenaina",
     };

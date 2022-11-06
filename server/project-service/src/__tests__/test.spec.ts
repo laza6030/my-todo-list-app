@@ -11,7 +11,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 
 require('dotenv').config()
 
-import { GET_WORKSPACE } from './utils'
+import { GET_WORKSPACE, CREATE_COLUMN, CREATE_WORKSPACE } from './utils'
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
@@ -25,6 +25,53 @@ afterAll(async () => {
     await mongoose.disconnect()
 })
 
+// create column
+describe('Given a column name', () => {
+    it('should create column with the same name', async () => {
+        const result = await server.executeOperation({
+            query: CREATE_COLUMN,
+            variables: { name: 'my column' },
+        })
+
+        expect(result.data.createColumn.name).toEqual('my column')
+    })
+})
+
+describe('Given creating a column', () => {
+    it('should return fields id and name of the new column', async () => {
+        const result = await server.executeOperation({
+            query: CREATE_COLUMN,
+            variables: { name: 'my column' },
+        })
+
+        expect(result.data.createColumn).toHaveProperty('id')
+        expect(result.data.createColumn).toHaveProperty('name', 'my column')
+    })
+})
+
+// Create workspace
+describe('Given a name and a userId', () => {
+    it('should create create and return a workspace with same name and id', async () => {
+        const result = await server.executeOperation({
+            query: CREATE_WORKSPACE,
+            variables: {
+                name: 'my workspace',
+                userId: '41224d776a326fb40f000000',
+            },
+        })
+
+        expect(result.data.createWorkspace).toHaveProperty(
+            'name',
+            'my workspace'
+        )
+        expect(result.data.createWorkspace).toHaveProperty(
+            'userId',
+            '41224d776a326fb40f000000'
+        )
+    })
+})
+
+// Get workspace
 describe('Given a user id', () => {
     it('should return all the related workspace', async () => {
         const workspace1 = new WorkspaceModel({

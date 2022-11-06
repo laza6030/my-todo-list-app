@@ -14,6 +14,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { SnackbarProvider } from "notistack";
 
+import { UserProvider } from "./context/UserContext";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./index.css";
@@ -48,7 +49,9 @@ root.render(
         <DndProvider backend={HTML5Backend}>
           <BrowserRouter>
             <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
-              <App />
+              <UserProvider>
+                <App />
+              </UserProvider>
             </SnackbarProvider>
           </BrowserRouter>
         </DndProvider>

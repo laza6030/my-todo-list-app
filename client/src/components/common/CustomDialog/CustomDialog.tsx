@@ -9,6 +9,7 @@ interface IProps {
   content?: React.ReactNode;
   cancelLabel?: string;
   confirmLabel?: string;
+  disableConfirmButton?: boolean;
   onCancel?: () => void;
   onSubmit?: () => void;
   onClose?: () => void;
@@ -20,6 +21,7 @@ const CustomDialog = (props: IProps) => {
     content,
     confirmLabel,
     cancelLabel,
+    disableConfirmButton = false,
     onCancel,
     onSubmit,
     onClose,
@@ -45,7 +47,7 @@ const CustomDialog = (props: IProps) => {
         <Button onClick={handleCancel}>
           {cancelLabel ? cancelLabel : <>Cancel</>}
         </Button>
-        <Button onClick={handleSubmit}>
+        <Button onClick={handleSubmit} disabled={disableConfirmButton}>
           {confirmLabel ? confirmLabel : <>Submit</>}
         </Button>
       </DialogActions>
