@@ -13,7 +13,15 @@ const App = () => (
     <Route path="/sign-up" element={<SignUp />} />
     <Route path="/sign-in" element={<SignIn />} />
     <Route
-      path="/dashboard"
+      path="/dashboard/:workspaceId"
+      element={
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      }
+    />
+    <Route
+      path="/dashboard/*"
       element={
         <PrivateRoute>
           <Dashboard />

@@ -8,10 +8,11 @@ export const GET_WORKSPACE = `
     }
 `
 export const CREATE_COLUMN = `
-    mutation CreateColumn($name: String!) {
-        createColumn(name: $name) {
+    mutation CreateColumn($name: String!, $workspaceId: String!) {
+        createColumn(name: $name, workspaceId: $workspaceId) {
             id
             name
+            workspaceId
         }
     }
 `

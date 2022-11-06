@@ -26,26 +26,21 @@ afterAll(async () => {
 })
 
 // create column
-describe('Given a column name', () => {
-    it('should create column with the same name', async () => {
+describe('Given a column name and a workspace id', () => {
+    it('should create column with the same name and workspace id', async () => {
         const result = await server.executeOperation({
             query: CREATE_COLUMN,
-            variables: { name: 'my column' },
+            variables: {
+                name: 'my column',
+                workspaceId: '6365604e5739438d091a2dbf',
+            },
         })
 
-        expect(result.data.createColumn.name).toEqual('my column')
-    })
-})
-
-describe('Given creating a column', () => {
-    it('should return fields id and name of the new column', async () => {
-        const result = await server.executeOperation({
-            query: CREATE_COLUMN,
-            variables: { name: 'my column' },
-        })
-
-        expect(result.data.createColumn).toHaveProperty('id')
         expect(result.data.createColumn).toHaveProperty('name', 'my column')
+        expect(result.data.createColumn).toHaveProperty(
+            'workspaceId',
+            '6365604e5739438d091a2dbf'
+        )
     })
 })
 
@@ -105,4 +100,9 @@ describe('Given a user id', () => {
             },
         ])
     })
+})
+
+// Get columns
+describe('given a workspaceId', () => {
+    it('should return all related colums', () => {})
 })

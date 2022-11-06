@@ -27,3 +27,12 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_WORKSPACE = gql`
+  query GetWorkspace($userId: String!) {
+    getWorkspace(userId: $userId) {
+      id
+      name
+    }
+  }
+`;
