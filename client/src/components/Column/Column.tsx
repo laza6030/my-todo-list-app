@@ -6,19 +6,19 @@ import Divider from "@mui/material/Divider";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 
-import CustomDialog from "../../common/CustomDialog";
-import Task from "../../Task";
+import CustomDialog from "../common/CustomDialog";
+import Task from "../Task";
 import Header from "./Header";
 
-import { GetColumns_getColumns } from "../../../graphql/__generated__/GetColumns";
+import { GetColumns_getColumns } from "../../graphql/__generated__/GetColumns";
 import {
   useDeleteColumn,
   useRenameColumn,
   useCreateTask,
   useGetTasksByColumn,
   useMoveTask,
-} from "../../../hooks";
-import { ItemTypes } from "../../../constants";
+} from "../../hooks";
+import { ItemTypes } from "../../constants";
 
 import { useStyles } from "./styles";
 

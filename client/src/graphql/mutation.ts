@@ -61,3 +61,13 @@ export const SIGN_IN = gql`
     signIn(input: $input)
   }
 `;
+
+export const CREATE_WORKSPACE = gql`
+  mutation CreateWorkspace($name: String!, $userId: String!) {
+    createWorkspace(name: $name, userId: $userId) {
+      id
+      name
+      userId
+    }
+  }
+`;

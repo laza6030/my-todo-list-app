@@ -6,6 +6,13 @@ export interface IColumn {
 }
 
 export interface ITask {
+    id: Types.ObjectId
     name: string
     columnId: Types.ObjectId
+}
+
+export interface IWorkspace {
+    id: Types.ObjectId
+    name: string
+    userId: Types.ObjectId
 }

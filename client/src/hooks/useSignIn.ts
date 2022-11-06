@@ -21,12 +21,19 @@ export const useSignIn = () => {
       },
 
       onError: (error: ApolloError) => {
-        if (
-          error.graphQLErrors[0].extensions.code ===
-          APOLLO_ERROR_CODE.USER_NOT_FOUND
-        ) {
-          displayError("User not found...");
-        } else displayError("Error when logging...");
+        switch (error.graphQLErrors[0].extensions.code) {
+          case APOLLO_ERROR_CODE.USER_NOT_FOUND:
+            displayError("User not found...");
+            break;
+
+          case APOLLO_ERROR_CODE.WRONG_PASSWORD:
+            displayError("Wrong password, please try again...");
+            break;
+
+          default:
+            displayError("Error when logging...");
+            break;
+        }
       },
     }
   );

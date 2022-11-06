@@ -6,11 +6,11 @@ export const signUp = async (
   _,
   { input: { username, password } }: MutationSignUpArgs
 ) => {
-  try {
-    const hashedPassword = await hashPassword(password);
-    const user = new UserModel({ username, password: hashedPassword });
-    return await user.save();
-  } catch (error) {
-    console.error(error);
-  }
+  const user = await UserModel.find({ username });
+
+  if (user.length) throw new Error("User already exists");
+
+  const hashedPassword = await hashPassword(password);
+  const newUser = new UserModel({ username, password: hashedPassword });
+  return await newUser.save();
 };
