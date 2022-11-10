@@ -1,13 +1,20 @@
 import { useQuery } from "@apollo/client";
 import { GET_COLUMNS } from "../graphql/query";
-import { GetColumns } from "../graphql/__generated__/GetColumns";
+import {
+  GetColumns,
+  GetColumnsVariables,
+} from "../graphql/__generated__/GetColumns";
 import { useDisplayer } from "./useDisplayer";
 
-export const useGetColumns = () => {
+export const useGetColumns = (workspaceId: string) => {
   const { displayError } = useDisplayer();
-  const { data, loading } = useQuery<GetColumns>(GET_COLUMNS, {
-    onError: () => displayError("Error while fetching column(s)"),
-  });
+  const { data, loading } = useQuery<GetColumns, GetColumnsVariables>(
+    GET_COLUMNS,
+    {
+      variables: { workspaceId },
+      onError: () => displayError("Error while fetching column(s)"),
+    }
+  );
 
   return { data, loading };
 };

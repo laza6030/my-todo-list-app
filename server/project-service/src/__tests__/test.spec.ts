@@ -6,12 +6,18 @@ import typeDefs from '../graphql/schema.graphql'
 import resolvers from '../graphql/resolvers'
 
 import WorkspaceModel from '../models/workspaceModel'
+import ColumnModel from '../models/columnModel'
 
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
 require('dotenv').config()
 
-import { GET_WORKSPACE, CREATE_COLUMN, CREATE_WORKSPACE } from './utils'
+import {
+    GET_WORKSPACE,
+    CREATE_COLUMN,
+    CREATE_WORKSPACE,
+    GET_COLUMNS,
+} from './utils'
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
@@ -41,6 +47,25 @@ describe('Given a column name and a workspace id', () => {
             'workspaceId',
             '6365604e5739438d091a2dbf'
         )
+    })
+})
+
+// Get columns
+describe('given a workspaceId', () => {
+    it('should return all related colums', async () => {
+        const column = new ColumnModel({
+            name: 'my column',
+            workspaceId: '6365604e5739438d091a2dbe',
+        })
+
+        await column.save()
+
+        const result = await server.executeOperation({
+            query: GET_COLUMNS,
+            variables: { workspaceId: '6365604e5739438d091a2dbe' },
+        })
+
+        expect(result.data.getColumns[0]).toHaveProperty('name', 'my column')
     })
 })
 
@@ -100,9 +125,4 @@ describe('Given a user id', () => {
             },
         ])
     })
-})
-
-// Get columns
-describe('given a workspaceId', () => {
-    it('should return all related colums', () => {})
 })

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_COLUMNS = gql`
-  query GetColumns {
-    getColumns {
+  query GetColumns($workspaceId: String!) {
+    getColumns(workspaceId: $workspaceId) {
       id
       name
     }

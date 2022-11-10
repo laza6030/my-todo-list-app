@@ -26,3 +26,11 @@ export const CREATE_WORKSPACE = `
         }
     }
 `
+export const GET_COLUMNS = `
+    query GetColumns($workspaceId: String!) {
+        getColumns(workspaceId: $workspaceId) {
+            id
+            name
+        }
+    }
+`
