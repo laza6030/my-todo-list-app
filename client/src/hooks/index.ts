@@ -10,3 +10,4 @@ export * from "./useSignUp";
 export * from "./useSignIn";
 export * from "./useCreateWorkspace";
 export * from "./useGetUser";
+export * from "./useGetWorkspace";

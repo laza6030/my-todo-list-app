@@ -6,12 +6,18 @@ import typeDefs from '../graphql/schema.graphql'
 import resolvers from '../graphql/resolvers'
 
 import WorkspaceModel from '../models/workspaceModel'
+import ColumnModel from '../models/columnModel'
 
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
 require('dotenv').config()
 
-import { GET_WORKSPACE, CREATE_COLUMN, CREATE_WORKSPACE } from './utils'
+import {
+    GET_WORKSPACE,
+    CREATE_COLUMN,
+    CREATE_WORKSPACE,
+    GET_COLUMNS,
+} from './utils'
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
@@ -26,26 +32,40 @@ afterAll(async () => {
 })
 
 // create column
-describe('Given a column name', () => {
-    it('should create column with the same name', async () => {
+describe('Given a column name and a workspace id', () => {
+    it('should create column with the same name and workspace id', async () => {
         const result = await server.executeOperation({
             query: CREATE_COLUMN,
-            variables: { name: 'my column' },
+            variables: {
+                name: 'my column',
+                workspaceId: '6365604e5739438d091a2dbf',
+            },
         })
 
-        expect(result.data.createColumn.name).toEqual('my column')
+        expect(result.data.createColumn).toHaveProperty('name', 'my column')
+        expect(result.data.createColumn).toHaveProperty(
+            'workspaceId',
+            '6365604e5739438d091a2dbf'
+        )
     })
 })
 
-describe('Given creating a column', () => {
-    it('should return fields id and name of the new column', async () => {
-        const result = await server.executeOperation({
-            query: CREATE_COLUMN,
-            variables: { name: 'my column' },
+// Get columns
+describe('given a workspaceId', () => {
+    it('should return all related colums', async () => {
+        const column = new ColumnModel({
+            name: 'my column',
+            workspaceId: '6365604e5739438d091a2dbe',
         })
 
-        expect(result.data.createColumn).toHaveProperty('id')
-        expect(result.data.createColumn).toHaveProperty('name', 'my column')
+        await column.save()
+
+        const result = await server.executeOperation({
+            query: GET_COLUMNS,
+            variables: { workspaceId: '6365604e5739438d091a2dbe' },
+        })
+
+        expect(result.data.getColumns[0]).toHaveProperty('name', 'my column')
     })
 })
 

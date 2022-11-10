@@ -4,20 +4,19 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateColumn
+// GraphQL query operation: GetWorkspace
 // ====================================================
 
-export interface CreateColumn_createColumn {
-  __typename: "Column";
+export interface GetWorkspace_getWorkspace {
+  __typename: "Workspace";
   id: string;
   name: string;
 }
 
-export interface CreateColumn {
-  createColumn: CreateColumn_createColumn;
+export interface GetWorkspace {
+  getWorkspace: (GetWorkspace_getWorkspace | null)[];
 }
 
-export interface CreateColumnVariables {
-  name: string;
-  workspaceId: string;
+export interface GetWorkspaceVariables {
+  userId: string;
 }

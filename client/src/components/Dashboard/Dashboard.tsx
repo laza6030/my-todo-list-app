@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Grid from "@mui/material/Grid";
@@ -15,12 +16,13 @@ import { useStyles } from "./styles";
 
 const Dashboard = () => {
   const classes = useStyles();
+  const { workspaceId } = useParams();
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
 
-  const { data } = useGetColumns();
-  const { createColumn } = useCreateColumn();
+  const { data } = useGetColumns(workspaceId!);
+  const { createColumn } = useCreateColumn(workspaceId!);
 
   const handleOpenDialog = () => setOpenDialog((openDialog) => !openDialog);
 
@@ -28,9 +30,11 @@ const Dashboard = () => {
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => setInput(event.target.value);
 
-  const handleSubmit = () => {
-    createColumn({ name: input });
-    setInput("");
+  const handleCreateColumn = () => {
+    if (workspaceId && input) {
+      createColumn({ name: input, workspaceId });
+      setInput("");
+    }
   };
 
   return (
@@ -59,8 +63,9 @@ const Dashboard = () => {
       {openDialog && (
         <CustomDialog
           onClose={() => setOpenDialog(false)}
-          onSubmit={handleSubmit}
+          onSubmit={handleCreateColumn}
           title="Enter column name"
+          disableConfirmButton={!input}
           content={
             <Input
               value={input}

@@ -6,6 +6,11 @@ const ColumnSchema = new Schema<IColumn>({
         type: Schema.Types.String,
         required: true,
     },
+
+    workspaceId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+    },
 })
 
 const Column = model('Column', ColumnSchema)

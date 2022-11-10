@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useDrop } from "react-dnd";
+import { useParams } from "react-router-dom";
+
 import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -26,10 +28,11 @@ interface IProps extends Omit<GetColumns_getColumns, "__typename"> {}
 
 const Column = (props: IProps) => {
   const { id, name } = props;
+  const { workspaceId } = useParams();
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskName, setTaskName] = useState<string>("");
-  const { deleteColumn } = useDeleteColumn();
+  const { deleteColumn } = useDeleteColumn(workspaceId!);
   const { mutate: renameColumn } = useRenameColumn();
   const { createTask, loading } = useCreateTask(id);
   const { data, refetch } = useGetTasksByColumn(id);

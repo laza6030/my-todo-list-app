@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_COLUMNS = gql`
-  query GetColumns {
-    getColumns {
+  query GetColumns($workspaceId: String!) {
+    getColumns(workspaceId: $workspaceId) {
       id
       name
     }
@@ -24,6 +24,15 @@ export const GET_USER = gql`
     getUser(token: $token) {
       id
       username
+    }
+  }
+`;
+
+export const GET_WORKSPACE = gql`
+  query GetWorkspace($userId: String!) {
+    getWorkspace(userId: $userId) {
+      id
+      name
     }
   }
 `;

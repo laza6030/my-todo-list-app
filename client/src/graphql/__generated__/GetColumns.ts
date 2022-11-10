@@ -16,3 +16,7 @@ export interface GetColumns_getColumns {
 export interface GetColumns {
   getColumns: (GetColumns_getColumns | null)[] | null;
 }
+
+export interface GetColumnsVariables {
+  workspaceId: string;
+}

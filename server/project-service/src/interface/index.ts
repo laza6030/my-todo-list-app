@@ -3,6 +3,7 @@ import { Types } from 'mongoose'
 export interface IColumn {
     id: Types.ObjectId
     name: string
+    workspaceId: Types.ObjectId
 }
 
 export interface ITask {

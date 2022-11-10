@@ -8,8 +8,9 @@ import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 
 import { UserContext } from "../../context/UserContext";
-import { useCreateWorkspace } from "../../hooks";
+import { useCreateWorkspace, useGetWorkspace } from "../../hooks";
 import CustomDialog from "../common/CustomDialog";
+import WorkspaceItem from "./WorkspaceItem";
 
 import { useStyles } from "./styles";
 
@@ -21,6 +22,7 @@ const LeftMenu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { createWorkspace } = useCreateWorkspace();
+  const { workspace } = useGetWorkspace(id!);
 
   const handleCreateWorkspace = () => {
     createWorkspace({ name: workspaceName, userId: id ?? "" });
@@ -43,6 +45,13 @@ const LeftMenu = () => {
         <Typography>Your Workspace</Typography>
         <Divider classes={{ root: classes.divider }} />
       </Grid>
+      {workspace?.map((item, index) => (
+        <WorkspaceItem
+          key={index}
+          name={item?.name ?? ""}
+          id={item?.id ?? ""}
+        />
+      ))}
 
       <Button
         startIcon={<AddCircleRoundedIcon />}

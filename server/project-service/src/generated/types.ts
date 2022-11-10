@@ -20,6 +20,7 @@ export type Column = {
   __typename?: 'Column';
   id: Scalars['ID'];
   name: Scalars['String'];
+  workspaceId: Scalars['ID'];
 };
 
 export type Query = {
@@ -28,6 +29,11 @@ export type Query = {
   getTasksByColumn?: Maybe<Array<Task>>;
   getWorkspace: Array<Maybe<Workspace>>;
   _service: _Service;
+};
+
+
+export type QueryGetColumnsArgs = {
+  workspaceId: Scalars['String'];
 };
 
 
@@ -54,6 +60,7 @@ export type Mutation = {
 
 export type MutationCreateColumnArgs = {
   name: Scalars['String'];
+  workspaceId: Scalars['String'];
 };
 
 
@@ -209,18 +216,19 @@ export type ResolversParentTypes = {
 export type ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['Column'] = ResolversParentTypes['Column']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  workspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType>;
+  getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType, RequireFields<QueryGetColumnsArgs, 'workspaceId'>>;
   getTasksByColumn?: Resolver<Maybe<Array<ResolversTypes['Task']>>, ParentType, ContextType, RequireFields<QueryGetTasksByColumnArgs, 'columnId'>>;
   getWorkspace?: Resolver<Array<Maybe<ResolversTypes['Workspace']>>, ParentType, ContextType, RequireFields<QueryGetWorkspaceArgs, 'userId'>>;
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name'>>;
+  createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name' | 'workspaceId'>>;
   deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>;
   renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>;
   createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'columnId' | 'name'>>;
