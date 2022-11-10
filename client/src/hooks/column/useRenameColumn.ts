@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { RENAME_COLUMN } from "../graphql/mutation";
-import { GET_COLUMNS } from "../graphql/query";
+import { RENAME_COLUMN } from "../../graphql/mutation";
+import { GET_COLUMNS } from "../../graphql/query";
 import {
   RenameColumn,
   RenameColumnVariables,
-} from "../graphql/__generated__/RenameColumn";
-import { useDisplayer } from "./useDisplayer";
+} from "../../graphql/__generated__/RenameColumn";
+import { useDisplayer } from "../useDisplayer";
 
 export const useRenameColumn = () => {
   const { displaySuccess } = useDisplayer();

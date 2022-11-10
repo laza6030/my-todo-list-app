@@ -1,13 +1,13 @@
 import { useMutation } from "@apollo/client";
 
-import { CREATE_WORKSPACE } from "../graphql/mutation";
-import { GET_WORKSPACE } from "../graphql/query";
+import { CREATE_WORKSPACE } from "../../graphql/mutation";
+import { GET_WORKSPACE } from "../../graphql/query";
 import {
   CreateWorkspace,
   CreateWorkspaceVariables,
-} from "../graphql/__generated__/CreateWorkspace";
+} from "../../graphql/__generated__/CreateWorkspace";
 
-import { useDisplayer } from "./useDisplayer";
+import { useDisplayer } from "../useDisplayer";
 
 export const useCreateWorkspace = (
   userId: string,
