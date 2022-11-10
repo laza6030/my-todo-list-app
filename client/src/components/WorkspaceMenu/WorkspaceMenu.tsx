@@ -21,7 +21,7 @@ const LeftMenu = () => {
   const [workspaceName, setWorkspaceName] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { createWorkspace } = useCreateWorkspace();
+  const { createWorkspace } = useCreateWorkspace(id!, () => setIsOpen(false));
   const { workspace } = useGetWorkspace(id!);
 
   const handleCreateWorkspace = () => {

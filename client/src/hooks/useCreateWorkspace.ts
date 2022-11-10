@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 
 import { CREATE_WORKSPACE } from "../graphql/mutation";
+import { GET_WORKSPACE } from "../graphql/query";
 import {
   CreateWorkspace,
   CreateWorkspaceVariables,
@@ -8,14 +9,21 @@ import {
 
 import { useDisplayer } from "./useDisplayer";
 
-export const useCreateWorkspace = () => {
+export const useCreateWorkspace = (
+  userId: string,
+  onCompleted?: () => void
+) => {
   const { displayError, displaySuccess } = useDisplayer();
 
   const [mutate, { loading }] = useMutation<
     CreateWorkspace,
     CreateWorkspaceVariables
   >(CREATE_WORKSPACE, {
-    onCompleted: () => displaySuccess("Workspace created successfully"),
+    refetchQueries: [{ query: GET_WORKSPACE, variables: { userId } }],
+    onCompleted: () => {
+      onCompleted?.();
+      displaySuccess("Workspace created successfully");
+    },
     onError: () => displayError("Failed creating new workspace"),
   });
 
