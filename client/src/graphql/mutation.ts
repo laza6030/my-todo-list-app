@@ -71,3 +71,9 @@ export const CREATE_WORKSPACE = gql`
     }
   }
 `;
+
+export const DELETE_WORKSPACE = gql`
+  mutation DeleteWorkspace($workspaceId: String!) {
+    deleteWorkspace(workspaceId: $workspaceId)
+  }
+`;

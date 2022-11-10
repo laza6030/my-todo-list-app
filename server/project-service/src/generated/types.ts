@@ -55,6 +55,7 @@ export type Mutation = {
   deleteTask?: Maybe<Scalars['Boolean']>;
   moveTask: Task;
   createWorkspace?: Maybe<Workspace>;
+  deleteWorkspace: Scalars['Boolean'];
 };
 
 
@@ -95,6 +96,11 @@ export type MutationMoveTaskArgs = {
 export type MutationCreateWorkspaceArgs = {
   name: Scalars['String'];
   userId: Scalars['String'];
+};
+
+
+export type MutationDeleteWorkspaceArgs = {
+  workspaceId: Scalars['String'];
 };
 
 export type Task = {
@@ -235,6 +241,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteTask?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteTaskArgs, 'id'>>;
   moveTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationMoveTaskArgs, 'taskId' | 'columnId'>>;
   createWorkspace?: Resolver<Maybe<ResolversTypes['Workspace']>, ParentType, ContextType, RequireFields<MutationCreateWorkspaceArgs, 'name' | 'userId'>>;
+  deleteWorkspace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWorkspaceArgs, 'workspaceId'>>;
 };
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {

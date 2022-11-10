@@ -17,6 +17,7 @@ import {
     CREATE_COLUMN,
     CREATE_WORKSPACE,
     GET_COLUMNS,
+    DELETE_WORKSPACE,
 } from './utils'
 
 const server = new ApolloServer({ typeDefs, resolvers })
@@ -91,6 +92,8 @@ describe('Given a name and a userId', () => {
     })
 })
 
+// Add workspace name should be unique test
+
 // Get workspace
 describe('Given a user id', () => {
     it('should return all the related workspace', async () => {
@@ -124,5 +127,27 @@ describe('Given a user id', () => {
                 userId: '41224d776a326fb40f000001',
             },
         ])
+    })
+})
+
+// Delete workspace
+describe('Given a workspaceId', () => {
+    it.only('should remove the workspace and return true', async () => {
+        const workspace1 = new WorkspaceModel({
+            _id: '6365604e5739438d091a2dba',
+            name: 'workspace1',
+            userId: '41224d776a326fb40f000001',
+        })
+
+        await workspace1.save()
+
+        const result = await server.executeOperation({
+            query: DELETE_WORKSPACE,
+            variables: {
+                workspaceId: '6365604e5739438d091a2dba',
+            },
+        })
+
+        expect(result.data.deleteWorkspace).toEqual(true)
     })
 })

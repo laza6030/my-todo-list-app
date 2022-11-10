@@ -8,13 +8,20 @@ export const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    textDecoration: "none",
+    paddingLeft: 10,
     color: "#414345",
 
     "&:hover": {
       backgroundColor: "#dbcaca",
       cursor: "pointer",
     },
+  },
+
+  link: {
+    textDecoration: "none",
+  },
+
+  iconButton: {
+    marginLeft: "auto",
   },
 });
