@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { CREATE_WORKSPACE } from "../../graphql/mutation";
@@ -13,6 +14,7 @@ export const useCreateWorkspace = (
   userId: string,
   onCompleted?: () => void
 ) => {
+  const navigate = useNavigate();
   const { displayError, displaySuccess } = useDisplayer();
 
   const [mutate, { loading }] = useMutation<
@@ -20,8 +22,9 @@ export const useCreateWorkspace = (
     CreateWorkspaceVariables
   >(CREATE_WORKSPACE, {
     refetchQueries: [{ query: GET_WORKSPACE, variables: { userId } }],
-    onCompleted: () => {
+    onCompleted: (data) => {
       onCompleted?.();
+      navigate(`/dashboard/${data.createWorkspace?.id}`);
       displaySuccess("Workspace created successfully");
     },
     onError: () => displayError("Failed creating new workspace"),
