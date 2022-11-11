@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import Grid from "@mui/material/Grid";
 
 import CustomDialog from "../../common/CustomDialog";
+import { useDeleteWorkspace } from "../../../hooks";
 
 import { useStyles } from "./styles";
 
@@ -22,15 +23,23 @@ interface IProps {
 const WorkspaceItem = (props: IProps) => {
   const { id, name } = props;
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const { deleteWorkspace } = useDeleteWorkspace();
+
   const handleClose = () => {
     setAnchorEl(null);
     setShowMenu(false);
+  };
+
+  const handleSwitchWorspace = () => {
+    navigate(`/dashboard/${id}`);
+    setAnchorEl(null);
   };
 
   return (
@@ -58,17 +67,22 @@ const WorkspaceItem = (props: IProps) => {
         <MenuItem>
           <DriveFileRenameOutlineIcon /> Rename
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => setIsOpen(true)}>
           <DeleteIcon />
           Delete
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleSwitchWorspace}>
           <SwapHorizIcon />
           Switch
         </MenuItem>
       </Menu>
 
-      {isOpen && <CustomDialog onCancel={() => setIsOpen(false)} />}
+      {isOpen && (
+        <CustomDialog
+          onCancel={() => setIsOpen(false)}
+          onSubmit={() => deleteWorkspace({ workspaceId: id })}
+        />
+      )}
     </Grid>
   );
 };
