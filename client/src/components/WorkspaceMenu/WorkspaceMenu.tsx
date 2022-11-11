@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import Typography from "@mui/material/Typography";
@@ -7,25 +7,31 @@ import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 
-import { UserContext } from "../../context/UserContext";
-import { useCreateWorkspace, useGetWorkspace } from "../../hooks";
+import { useCreateWorkspace } from "../../hooks";
 import CustomDialog from "../common/CustomDialog";
 import WorkspaceItem from "./WorkspaceItem";
+import { GetWorkspace_getWorkspace } from "../../graphql/__generated__/GetWorkspace";
 
 import { useStyles } from "./styles";
 
-const LeftMenu = () => {
+interface IProps {
+  userId: string;
+  workspace: (GetWorkspace_getWorkspace | null)[] | undefined;
+}
+
+const WorkspaceMenu = (props: IProps) => {
+  const { workspace, userId } = props;
   const classes = useStyles();
-  const { id } = useContext(UserContext);
 
   const [workspaceName, setWorkspaceName] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { createWorkspace } = useCreateWorkspace(id!, () => setIsOpen(false));
-  const { workspace } = useGetWorkspace(id!);
+  const { createWorkspace } = useCreateWorkspace(userId, () =>
+    setIsOpen(false)
+  );
 
   const handleCreateWorkspace = () => {
-    createWorkspace({ name: workspaceName, userId: id ?? "" });
+    createWorkspace({ name: workspaceName, userId });
   };
 
   return (
@@ -80,4 +86,4 @@ const LeftMenu = () => {
   );
 };
 
-export default LeftMenu;
+export default WorkspaceMenu;

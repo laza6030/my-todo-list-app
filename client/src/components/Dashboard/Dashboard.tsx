@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { ChangeEvent, useState, useContext, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Grid from "@mui/material/Grid";
@@ -10,17 +10,21 @@ import CustomDialog from "../common/CustomDialog";
 import Header from "../Header";
 import Column from "../Column";
 import WorkspaceMenu from "../WorkspaceMenu";
-import { useCreateColumn, useGetColumns } from "../../hooks";
+import { useCreateColumn, useGetColumns, useGetWorkspace } from "../../hooks";
+import { UserContext } from "../../context/UserContext";
 
 import { useStyles } from "./styles";
 
 const Dashboard = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { workspaceId } = useParams();
+  const { id } = useContext(UserContext);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
 
+  const { workspace } = useGetWorkspace(id!);
   const { data } = useGetColumns(workspaceId!);
   const { createColumn } = useCreateColumn(workspaceId!);
 
@@ -37,10 +41,17 @@ const Dashboard = () => {
     }
   };
 
+  useEffect(() => {
+    if (!workspaceId && workspace?.length)
+      navigate(`/dashboard/${workspace?.[0]?.id}`);
+  }, [workspace]);
+
   return (
     <Grid container classes={{ root: classes.root }}>
       <Header />
-      <WorkspaceMenu />
+
+      <WorkspaceMenu userId={id ?? ""} workspace={workspace} />
+
       <Grid item container flexWrap="nowrap" width="auto">
         {data?.getColumns?.map((column, index) => (
           <Column
