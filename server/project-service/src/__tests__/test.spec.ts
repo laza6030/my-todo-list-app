@@ -132,7 +132,7 @@ describe('Given a user id', () => {
 
 // Delete workspace
 describe('Given a workspaceId', () => {
-    it.only('should remove the workspace and return true', async () => {
+    it('should remove the workspace and return true', async () => {
         const workspace1 = new WorkspaceModel({
             _id: '6365604e5739438d091a2dba',
             name: 'workspace1',

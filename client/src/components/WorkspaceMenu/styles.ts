@@ -5,6 +5,7 @@ export const useStyles = makeStyles({
     background: "#f6e0b5",
     width: 190,
     marginTop: 10,
+    marginRight: 10,
   },
 
   title: {

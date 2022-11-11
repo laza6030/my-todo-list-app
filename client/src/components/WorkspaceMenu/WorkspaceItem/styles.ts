@@ -24,4 +24,8 @@ export const useStyles = makeStyles({
   iconButton: {
     marginLeft: "auto",
   },
+
+  startIcon: {
+    marginRight: 10,
+  },
 });

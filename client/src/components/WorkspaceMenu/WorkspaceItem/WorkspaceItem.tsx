@@ -16,12 +16,12 @@ import { useDeleteWorkspace } from "../../../hooks";
 import { useStyles } from "./styles";
 
 interface IProps {
-  id: string;
+  workspaceId: string;
   name: string;
 }
 
 const WorkspaceItem = (props: IProps) => {
-  const { id, name } = props;
+  const { workspaceId, name } = props;
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -30,7 +30,8 @@ const WorkspaceItem = (props: IProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { deleteWorkspace } = useDeleteWorkspace();
+  const { deleteWorkspace, loading: loadingDeleteWorkspace } =
+    useDeleteWorkspace(() => setIsOpen(false));
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -38,7 +39,12 @@ const WorkspaceItem = (props: IProps) => {
   };
 
   const handleSwitchWorspace = () => {
-    navigate(`/dashboard/${id}`);
+    navigate(`/dashboard/${workspaceId}`);
+    setAnchorEl(null);
+  };
+
+  const handleOpenDeleteDialog = () => {
+    setIsOpen(true);
     setAnchorEl(null);
   };
 
@@ -48,7 +54,7 @@ const WorkspaceItem = (props: IProps) => {
       onMouseLeave={() => setShowMenu(false)}
       classes={{ root: classes.root }}
     >
-      <Link to={`/dashboard/${id}`} className={classes.link}>
+      <Link to={`/dashboard/${workspaceId}`} className={classes.link}>
         {name}
       </Link>
 
@@ -65,22 +71,31 @@ const WorkspaceItem = (props: IProps) => {
 
       <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
         <MenuItem>
-          <DriveFileRenameOutlineIcon /> Rename
+          <DriveFileRenameOutlineIcon classes={{ root: classes.startIcon }} />
+          Rename
         </MenuItem>
-        <MenuItem onClick={() => setIsOpen(true)}>
-          <DeleteIcon />
+
+        <MenuItem onClick={handleOpenDeleteDialog}>
+          <DeleteIcon classes={{ root: classes.startIcon }} />
           Delete
         </MenuItem>
+
         <MenuItem onClick={handleSwitchWorspace}>
-          <SwapHorizIcon />
+          <SwapHorizIcon classes={{ root: classes.startIcon }} />
           Switch
         </MenuItem>
       </Menu>
 
       {isOpen && (
         <CustomDialog
+          title="Delete workspace"
+          disableConfirmButton={loadingDeleteWorkspace}
+          content={<>Do you really want to delete this workspace: "{name}"?</>}
           onCancel={() => setIsOpen(false)}
-          onSubmit={() => deleteWorkspace({ workspaceId: id })}
+          onSubmit={() => {
+            console.log({ workspaceId, name });
+            deleteWorkspace({ workspaceId });
+          }}
         />
       )}
     </Grid>

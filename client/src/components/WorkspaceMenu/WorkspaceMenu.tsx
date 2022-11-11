@@ -55,7 +55,7 @@ const WorkspaceMenu = (props: IProps) => {
         <WorkspaceItem
           key={index}
           name={item?.name ?? ""}
-          id={item?.id ?? ""}
+          workspaceId={item?.id ?? ""}
         />
       ))}
 

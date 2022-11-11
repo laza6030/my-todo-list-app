@@ -6,7 +6,7 @@ export const deleteWorkspace = async (
     { workspaceId }: MutationDeleteWorkspaceArgs
 ) => {
     try {
-        await WorkspaceModel.deleteOne({ id: workspaceId })
+        await WorkspaceModel.deleteOne({ _id: workspaceId })
         return true
     } catch {
         return false
