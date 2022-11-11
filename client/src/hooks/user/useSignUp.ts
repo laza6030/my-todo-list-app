@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
-import { SIGN_UP } from "../graphql/mutation";
-import { SignUp, SignUpVariables } from "../graphql/__generated__/SignUp";
-import { useDisplayer } from "./useDisplayer";
+import { SIGN_UP } from "../../graphql/mutation";
+import { SignUp, SignUpVariables } from "../../graphql/__generated__/SignUp";
+import { useDisplayer } from "../useDisplayer";
 
 export const useSignUp = () => {
   const { displayError, displaySuccess } = useDisplayer();

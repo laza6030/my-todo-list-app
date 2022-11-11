@@ -34,3 +34,8 @@ export const GET_COLUMNS = `
         }
     }
 `
+export const DELETE_WORKSPACE = `
+    mutation DeleteWorkspace($workspaceId: String!) {
+        deleteWorkspace(workspaceId: $workspaceId)
+    }
+`

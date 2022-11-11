@@ -2,10 +2,10 @@ import { useMutation } from "@apollo/client";
 import {
   CreateTask,
   CreateTaskVariables,
-} from "../graphql/__generated__/CreateTask";
-import { CREATE_TASK } from "../graphql/mutation";
-import { GET_TASKS_BY_COLUMN } from "../graphql/query";
-import { useDisplayer } from "./useDisplayer";
+} from "../../graphql/__generated__/CreateTask";
+import { CREATE_TASK } from "../../graphql/mutation";
+import { GET_TASKS_BY_COLUMN } from "../../graphql/query";
+import { useDisplayer } from "../useDisplayer";
 
 export const useCreateTask = (columnId: String) => {
   const { displaySuccess, displayError } = useDisplayer();

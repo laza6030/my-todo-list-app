@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
-import { GET_TASKS_BY_COLUMN } from "../graphql/query";
+import { GET_TASKS_BY_COLUMN } from "../../graphql/query";
 import {
   GetTasksByColumn,
   GetTasksByColumnVariables,
-} from "../graphql/__generated__/GetTasksByColumn";
+} from "../../graphql/__generated__/GetTasksByColumn";
 
 export const useGetTasksByColumn = (columnId: string) => {
   const { data, loading, error, refetch } = useQuery<

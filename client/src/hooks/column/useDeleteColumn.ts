@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { DELETE_COLUMN } from "../graphql/mutation";
-import { GET_COLUMNS } from "../graphql/query";
+import { DELETE_COLUMN } from "../../graphql/mutation";
+import { GET_COLUMNS } from "../../graphql/query";
 import {
   DeleteColumn,
   DeleteColumnVariables,
-} from "../graphql/__generated__/DeleteColumn";
-import { useDisplayer } from "./useDisplayer";
+} from "../../graphql/__generated__/DeleteColumn";
+import { useDisplayer } from "../useDisplayer";
 
 export const useDeleteColumn = (workspaceId: string) => {
   const { displaySuccess, displayError } = useDisplayer();

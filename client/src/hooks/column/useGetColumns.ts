@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { GET_COLUMNS } from "../graphql/query";
+import { GET_COLUMNS } from "../../graphql/query";
 import {
   GetColumns,
   GetColumnsVariables,
-} from "../graphql/__generated__/GetColumns";
-import { useDisplayer } from "./useDisplayer";
+} from "../../graphql/__generated__/GetColumns";
+import { useDisplayer } from "../useDisplayer";
 
 export const useGetColumns = (workspaceId: string) => {
   const { displayError } = useDisplayer();

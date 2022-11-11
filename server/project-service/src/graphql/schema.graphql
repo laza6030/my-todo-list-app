@@ -18,6 +18,7 @@ type Mutation {
     deleteTask(id: String!): Boolean
     moveTask(taskId: String!, columnId: String!): Task!
     createWorkspace(name: String!, userId: String!): Workspace
+    deleteWorkspace(workspaceId: String!): Boolean!
 }
 
 type Task {

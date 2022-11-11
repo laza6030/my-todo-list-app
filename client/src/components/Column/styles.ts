@@ -6,6 +6,7 @@ export const useStyles = makeStyles({
     width: 300,
     height: "max-content",
     margin: 10,
+    marginLeft: 0,
     padding: 10,
     borderRadius: 10,
   },

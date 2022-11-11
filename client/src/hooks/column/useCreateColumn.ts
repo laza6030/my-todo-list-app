@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { CREATE_COLUMN } from "../graphql/mutation";
-import { GET_COLUMNS } from "../graphql/query";
+import { CREATE_COLUMN } from "../../graphql/mutation";
+import { GET_COLUMNS } from "../../graphql/query";
 import {
   CreateColumn,
   CreateColumnVariables,
-} from "../graphql/__generated__/CreateColumn";
-import { useDisplayer } from "./useDisplayer";
+} from "../../graphql/__generated__/CreateColumn";
+import { useDisplayer } from "../useDisplayer";
 
 export const useCreateColumn = (workspaceId: string) => {
   const { displaySuccess, displayError } = useDisplayer();
