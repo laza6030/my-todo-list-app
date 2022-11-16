@@ -10,13 +10,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
       - uses: actions/checkout@v3
       - name: Use NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - run: pwd
-      - run: cd server/account-service && npm install && npm run test
+      - working-directory: ./server/account-service
+        run: |
+          npm install
+          npm run test

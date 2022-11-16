@@ -107,7 +107,7 @@ describe("given an access token", () => {
 });
 
 describe("given a fake token", () => {
-  it.only("should return 'user not found' error ", async () => {
+  it("should return 'user not found' error ", async () => {
     // generate token
     const token = jwt.sign("fake_user", JWT_SECRET_KEY);
 
