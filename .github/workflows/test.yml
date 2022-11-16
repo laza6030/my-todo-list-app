@@ -19,4 +19,4 @@ jobs:
       - name: Use NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - run: pwd
-      - run: cd server/account-service && pwd
+      - run: cd server/account-service && ls
