@@ -49,13 +49,13 @@ describe("sign in", () => {
 
 // SIGN UP SECTION
 describe("sign up", () => {
-  it.only("should return the newly created user", async () => {
+  it("should return the newly created user", async () => {
     const result = await server.executeOperation({
       query: SIGN_UP,
       variables: { input: { username: "lazatest", password: "roottoor" } },
     });
 
-    expect(result.data.signUp.username).toEqual("error");
+    expect(result.data.signUp.username).toEqual("lazatest");
   });
 });
 
