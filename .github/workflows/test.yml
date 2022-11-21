@@ -3,8 +3,6 @@ name: Test Backend
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 env:
   JWT_SECRET_KEY: SUPER_SECRET
