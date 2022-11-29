@@ -26,7 +26,7 @@ export const signIn = async (
   }
 
   if (user) {
-    const token = jwt.sign(username, JWT_SECRET_KEY);
+    const token = jwt.sign(user.id, JWT_SECRET_KEY);
     return token;
   }
 };
