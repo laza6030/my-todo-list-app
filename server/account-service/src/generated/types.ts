@@ -53,6 +53,13 @@ export type User = {
   id?: Maybe<Scalars['ID']>;
   username?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  defaultWorkspaceId?: Maybe<Scalars['ID']>;
+};
+
+export type SignIn = {
+  __typename?: 'SignIn';
+  token: Scalars['String'];
+  defaultWorkspaceId: Scalars['ID'];
 };
 
 export type _Service = {
@@ -135,6 +142,7 @@ export type ResolversTypes = {
   UserInput: UserInput;
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  SignIn: ResolverTypeWrapper<SignIn>;
   _FieldSet: ResolverTypeWrapper<Scalars['_FieldSet']>;
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _Service: ResolverTypeWrapper<_Service>;
@@ -149,6 +157,7 @@ export type ResolversParentTypes = {
   UserInput: UserInput;
   User: User;
   ID: Scalars['ID'];
+  SignIn: SignIn;
   _FieldSet: Scalars['_FieldSet'];
   _Any: Scalars['_Any'];
   _Service: _Service;
@@ -169,6 +178,13 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  defaultWorkspaceId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SignInResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignIn'] = ResolversParentTypes['SignIn']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  defaultWorkspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -189,6 +205,7 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  SignIn?: SignInResolvers<ContextType>;
   _FieldSet?: GraphQLScalarType;
   _Any?: GraphQLScalarType;
   _Service?: _ServiceResolvers<ContextType>;

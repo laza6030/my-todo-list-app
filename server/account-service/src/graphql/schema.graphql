@@ -16,4 +16,5 @@ type User {
   id: ID
   username: String
   password: String
+  defaultWorkspaceId: ID
 }
