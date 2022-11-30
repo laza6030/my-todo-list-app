@@ -17,3 +17,7 @@ export interface IWorkspace {
     name: string
     userId: Types.ObjectId
 }
+
+export interface IContext {
+    userId: string
+}

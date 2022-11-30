@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/gateway": "^2.0.5",
+    "@types/jsonwebtoken": "^8.5.9",
     "apollo-server": "^3.10.1",
-    "graphql": "^16.5.0"
+    "graphql": "^16.5.0",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "typescript": "^4.6.4",

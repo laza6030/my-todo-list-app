@@ -23,6 +23,11 @@ const server = new ApolloServer({
         typeDefs,
         resolvers,
     }),
+    context: ({ req }) => {
+        return {
+            userId: req.headers['user-id'],
+        }
+    },
 })
 
 server.listen({ port: PORT }).then(({ url }) => {

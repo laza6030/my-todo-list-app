@@ -5,6 +5,8 @@ import {
   RemoteGraphQLDataSource,
 } from "@apollo/gateway";
 
+import { getUserId } from "../helpers";
+
 import config from "../config";
 
 const gateway = new ApolloGateway({
@@ -17,9 +19,9 @@ const gateway = new ApolloGateway({
   buildService({ url }) {
     return new RemoteGraphQLDataSource({
       url,
-      // willSendRequest({ request, context }) {
-      //   request.http.headers.set("x-user-id", context["x-user-id"]);
-      // },
+      willSendRequest({ request, context }) {
+        request.http.headers.set("user-id", getUserId(context.token));
+      },
     });
   },
 });
@@ -28,7 +30,7 @@ const server = new ApolloServer({
   gateway,
   context: ({ req }) => {
     return {
-      "x-user-id": "Laza Nantenaina",
+      token: req.headers["authorization"],
     };
   },
 });
