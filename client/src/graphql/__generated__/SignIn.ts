@@ -9,8 +9,14 @@ import { UserInput } from "./../../../__generated__/globalTypes";
 // GraphQL mutation operation: SignIn
 // ====================================================
 
+export interface SignIn_signIn {
+  __typename: "SignIn";
+  token: string;
+  defaultWorkspaceId: string;
+}
+
 export interface SignIn {
-  signIn: string;
+  signIn: SignIn_signIn;
 }
 
 export interface SignInVariables {

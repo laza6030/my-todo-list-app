@@ -14,7 +14,7 @@ export interface SignUp_signUp {
   id: string | null;
   username: string | null;
   token: string;
-  defaultWorkspaceId: string | null;
+  defaultWorkspaceId: string;
 }
 
 export interface SignUp {
