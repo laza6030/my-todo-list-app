@@ -1,12 +1,14 @@
 import axios from "axios";
-import { MutationSignUpArgs } from "../../../generated/types";
+import jwt from "jsonwebtoken";
+import { MutationSignUpArgs, SignUp } from "../../../generated/types";
 import UserModel from "../../../models/userModel";
 import { hashPassword } from "../../../helpers";
+import { JWT_SECRET_KEY } from "../../../config";
 
 export const signUp = async (
   _,
   { input: { username, password } }: MutationSignUpArgs
-) => {
+): Promise<SignUp> => {
   try {
     const user = await UserModel.find({ username });
 
@@ -31,7 +33,11 @@ export const signUp = async (
     );
 
     newUser.defaultWorkspaceId = data.workspaceId;
-    return await newUser.save();
+    await newUser.save();
+
+    const token = jwt.sign(createdUser.id, JWT_SECRET_KEY);
+
+    return { token, defaultWorkspaceId: data.workspaceId };
   } catch (error) {
     console.log(error);
   }

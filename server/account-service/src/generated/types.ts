@@ -29,7 +29,7 @@ export type QueryGetUserArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  signUp: User;
+  signUp: SignUp;
   signIn: Scalars['String'];
 };
 
@@ -48,18 +48,19 @@ export type UserInput = {
   password?: InputMaybe<Scalars['String']>;
 };
 
+export type SignUp = {
+  __typename?: 'SignUp';
+  id?: Maybe<Scalars['ID']>;
+  username?: Maybe<Scalars['String']>;
+  defaultWorkspaceId: Scalars['ID'];
+  token: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['ID']>;
   username?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
   defaultWorkspaceId?: Maybe<Scalars['ID']>;
-};
-
-export type SignIn = {
-  __typename?: 'SignIn';
-  token: Scalars['String'];
-  defaultWorkspaceId: Scalars['ID'];
 };
 
 export type _Service = {
@@ -140,9 +141,9 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
-  User: ResolverTypeWrapper<User>;
+  SignUp: ResolverTypeWrapper<SignUp>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  SignIn: ResolverTypeWrapper<SignIn>;
+  User: ResolverTypeWrapper<User>;
   _FieldSet: ResolverTypeWrapper<Scalars['_FieldSet']>;
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _Service: ResolverTypeWrapper<_Service>;
@@ -155,9 +156,9 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Mutation: {};
   UserInput: UserInput;
-  User: User;
+  SignUp: SignUp;
   ID: Scalars['ID'];
-  SignIn: SignIn;
+  User: User;
   _FieldSet: Scalars['_FieldSet'];
   _Any: Scalars['_Any'];
   _Service: _Service;
@@ -170,21 +171,22 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  signUp?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
+  signUp?: Resolver<ResolversTypes['SignUp'], ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
   signIn?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
+};
+
+export type SignUpResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignUp'] = ResolversParentTypes['SignUp']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  defaultWorkspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   defaultWorkspaceId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type SignInResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignIn'] = ResolversParentTypes['SignIn']> = {
-  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  defaultWorkspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -204,8 +206,8 @@ export type _ServiceResolvers<ContextType = any, ParentType extends ResolversPar
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  SignUp?: SignUpResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  SignIn?: SignInResolvers<ContextType>;
   _FieldSet?: GraphQLScalarType;
   _Any?: GraphQLScalarType;
   _Service?: _ServiceResolvers<ContextType>;

@@ -10,9 +10,11 @@ import { UserInput } from "./../../../__generated__/globalTypes";
 // ====================================================
 
 export interface SignUp_signUp {
-  __typename: "User";
+  __typename: "SignUp";
   id: string | null;
   username: string | null;
+  token: string;
+  defaultWorkspaceId: string | null;
 }
 
 export interface SignUp {

@@ -52,6 +52,8 @@ export const SIGN_UP = gql`
     signUp(input: $input) {
       id
       username
+      token
+      defaultWorkspaceId
     }
   }
 `;

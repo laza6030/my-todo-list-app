@@ -1,5 +1,5 @@
-import { ChangeEvent, useState, useContext, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { ChangeEvent, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Grid from "@mui/material/Grid";
@@ -17,7 +17,6 @@ import { useStyles } from "./styles";
 
 const Dashboard = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
   const { workspaceId } = useParams();
   const { id } = useContext(UserContext);
 
@@ -40,11 +39,6 @@ const Dashboard = () => {
       setInput("");
     }
   };
-
-  useEffect(() => {
-    if (!workspaceId && workspace?.length)
-      navigate(`/dashboard/${workspace?.[0]?.id}`);
-  }, [workspace]);
 
   return (
     <Grid container classes={{ root: classes.root }}>
