@@ -91,7 +91,7 @@ describe("given an access token", () => {
     await user.save();
 
     // generate token
-    const token = jwt.sign("laza1", JWT_SECRET_KEY);
+    const token = jwt.sign("41224d776a326fb40f000000", JWT_SECRET_KEY);
 
     const result = await server.executeOperation({
       query: GET_USER,
@@ -109,7 +109,7 @@ describe("given an access token", () => {
 describe("given a fake token", () => {
   it("should return 'user not found' error ", async () => {
     // generate token
-    const token = jwt.sign("fake_user", JWT_SECRET_KEY);
+    const token = jwt.sign("41224d776a326fb40f000007", JWT_SECRET_KEY);
 
     const result = await server.executeOperation({
       query: GET_USER,

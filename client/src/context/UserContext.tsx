@@ -16,6 +16,7 @@ interface IProps {
 export const UserProvider = (props: IProps) => {
   const { children } = props;
   const token = localStorage.getItem("token");
+
   const { user } = useGetUser(token ?? "");
 
   return (

@@ -11,6 +11,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+
+  defaultWorkspaceId: {
+    type: String,
+  },
 });
 
 const userModel = model<IUser>("user", userSchema);

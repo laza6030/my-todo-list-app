@@ -14,8 +14,9 @@ export const useSignIn = () => {
     {
       onCompleted: (data: SignIn) => {
         if (data.signIn) {
-          localStorage.setItem("token", data.signIn);
-          navigate("/dashboard");
+          const { token, defaultWorkspaceId } = data.signIn;
+          localStorage.setItem("token", token);
+          navigate(`/dashboard/${defaultWorkspaceId}`);
           window.location.reload();
         }
       },

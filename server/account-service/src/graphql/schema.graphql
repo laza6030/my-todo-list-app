@@ -3,8 +3,8 @@ type Query {
 }
 
 type Mutation {
-  signUp(input: UserInput!): User!
-  signIn(input: UserInput!): String!
+  signUp(input: UserInput!): SignUp!
+  signIn(input: UserInput!): SignIn!
 }
 
 input UserInput {
@@ -12,8 +12,20 @@ input UserInput {
   password: String
 }
 
+type SignIn {
+  token: String!
+  defaultWorkspaceId: String!
+}
+
+type SignUp {
+  id: ID
+  username: String
+  defaultWorkspaceId: ID!
+  token: String!
+}
+
 type User {
   id: ID
   username: String
-  password: String
+  defaultWorkspaceId: ID
 }
