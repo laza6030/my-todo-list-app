@@ -1,6 +1,9 @@
 export const SIGN_IN = `
     mutation SignIn($input: UserInput!) {
-        signIn(input: $input)
+        signIn(input: $input) {
+            token
+            defaultWorkspaceId
+        }
 }`;
 
 export const SIGN_UP = `
