@@ -6,5 +6,5 @@ import { Me } from "../../graphql/__generated__/Me";
 export const useGetMe = () => {
   const { data } = useQuery<Me>(GET_ME);
 
-  return data?.me;
+  return { user: data?.me };
 };

@@ -1,8 +1,7 @@
 import { createContext } from "react";
 
 import { GetUser_getUser } from "../graphql/__generated__/GetUser";
-
-import { useGetUser } from "../hooks";
+import { useGetMe } from "../hooks";
 
 export const UserContext = createContext<Omit<GetUser_getUser, "__typename">>({
   id: "",
@@ -15,9 +14,8 @@ interface IProps {
 
 export const UserProvider = (props: IProps) => {
   const { children } = props;
-  const token = localStorage.getItem("token");
 
-  const { user } = useGetUser(token ?? "");
+  const { user } = useGetMe();
 
   return (
     <UserContext.Provider
