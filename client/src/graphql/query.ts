@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      username
+      defaultWorkspaceId
+    }
+  }
+`;
+
 export const GET_COLUMNS = gql`
   query GetColumns($workspaceId: String!) {
     getColumns(workspaceId: $workspaceId) {

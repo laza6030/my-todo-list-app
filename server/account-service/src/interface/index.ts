@@ -4,3 +4,7 @@ export interface IUser {
   password: string;
   defaultWorkspaceId: string;
 }
+
+export interface IContext {
+  userId: string;
+}
