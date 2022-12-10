@@ -7,4 +7,8 @@ export const useStyles = makeStyles({
     marginTop: 10,
     backgroundColor: "#deb795",
   },
+
+  columnWrapper: {
+    marginTop: 10,
+  },
 });

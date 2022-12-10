@@ -15,9 +15,7 @@ import { useCreateColumn, useGetColumns, useGetWorkspace } from "../../hooks";
 
 import { useStyles } from "./styles";
 
-interface IProps {}
-
-const Workspace = (props: IProps) => {
+const Workspace = () => {
   const classes = useStyles();
 
   const { workspaceId } = useParams();
@@ -44,10 +42,16 @@ const Workspace = (props: IProps) => {
   };
 
   return (
-    <Grid>
+    <Grid container>
       <WorkspaceMenu userId={id ?? ""} workspace={workspace} />
 
-      <Grid item container flexWrap="nowrap" width="auto">
+      <Grid
+        item
+        container
+        flexWrap="nowrap"
+        width="auto"
+        classes={{ root: classes.columnWrapper }}
+      >
         {data?.getColumns?.map((column, index) => (
           <Column
             key={column?.__typename! + index}
