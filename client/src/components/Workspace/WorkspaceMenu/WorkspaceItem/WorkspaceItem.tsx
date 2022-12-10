@@ -10,8 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Grid from "@mui/material/Grid";
 
-import CustomDialog from "../../common/CustomDialog";
-import { useDeleteWorkspace } from "../../../hooks";
+import CustomDialog from "../../../common/CustomDialog";
+import { useDeleteWorkspace } from "../../../../hooks";
 
 import { useStyles } from "./styles";
 
