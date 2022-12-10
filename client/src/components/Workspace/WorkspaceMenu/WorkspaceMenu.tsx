@@ -7,10 +7,10 @@ import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 
-import { useCreateWorkspace } from "../../hooks";
-import CustomDialog from "../common/CustomDialog";
+import { useCreateWorkspace } from "../../../hooks";
+import CustomDialog from "../../common/CustomDialog";
 import WorkspaceItem from "./WorkspaceItem";
-import { GetWorkspace_getWorkspace } from "../../graphql/__generated__/GetWorkspace";
+import { GetWorkspace_getWorkspace } from "../../../graphql/__generated__/GetWorkspace";
 
 import { useStyles } from "./styles";
 

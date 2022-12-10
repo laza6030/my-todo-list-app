@@ -1,7 +1,7 @@
-import { getUser } from "./query";
+import { getUser, me } from "./query";
 import { signUp, signIn } from "./mutation";
 
 export default {
-  Query: { getUser },
+  Query: { getUser, me },
   Mutation: { signUp, signIn },
 };

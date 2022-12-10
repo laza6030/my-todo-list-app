@@ -8,7 +8,6 @@ export const useStyles = makeStyles({
     margin: 10,
     marginLeft: 0,
     padding: 10,
-    borderRadius: 10,
   },
 
   divider: {

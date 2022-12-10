@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { StyledEngineProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 
 import {
   ApolloClient,
@@ -18,6 +18,8 @@ import { UserProvider } from "./context/UserContext";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./index.css";
+
+import { theme } from "./theme";
 
 const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
 
@@ -45,17 +47,19 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <StyledEngineProvider injectFirst>
-        <DndProvider backend={HTML5Backend}>
-          <BrowserRouter>
-            <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
-              <UserProvider>
-                <App />
-              </UserProvider>
-            </SnackbarProvider>
-          </BrowserRouter>
-        </DndProvider>
-      </StyledEngineProvider>
+      <ThemeProvider theme={theme}>
+        <StyledEngineProvider injectFirst>
+          <DndProvider backend={HTML5Backend}>
+            <BrowserRouter>
+              <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
+                <UserProvider>
+                  <App />
+                </UserProvider>
+              </SnackbarProvider>
+            </BrowserRouter>
+          </DndProvider>
+        </StyledEngineProvider>
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
