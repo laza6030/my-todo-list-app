@@ -1,21 +1,22 @@
+import { buildSubgraphSchema } from "@apollo/subgraph";
 require("dotenv").config();
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { ApolloServer } from "apollo-server";
 import "graphql-import-node";
-import jwt from "jsonwebtoken";
 
 import typeDefs from "../graphql/schema.graphql";
 import resolvers from "../graphql/resolvers";
 
 import UserModel from "../models/userModel";
 
-import { JWT_SECRET_KEY } from "../config";
 import { hashPassword } from "../helpers";
 
-import { SIGN_IN, SIGN_UP, GET_USER } from "./utils";
+import { SIGN_IN, SIGN_UP } from "./utils";
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+});
 
 beforeAll(async () => {
   const mongod = await MongoMemoryServer.create();
@@ -45,7 +46,6 @@ describe("sign in", () => {
     });
 
     expect(result.data.signIn.token).toBeTruthy();
-    expect(result.data.signIn.defaultWorkspaceId).toBeTruthy();
   });
 });
 
@@ -79,45 +79,3 @@ describe("sign in", () => {
 //     expect(result.errors[0].message).toEqual("User already exists");
 //   });
 // });
-
-// Get user from token
-describe("given an access token", () => {
-  it("should return the related user", async () => {
-    // Create a user
-    const hashedPassword = await hashPassword("roottoor");
-    const user = new UserModel({
-      _id: "41224d776a326fb40f000000",
-      username: "laza1",
-      password: hashedPassword,
-    });
-    await user.save();
-
-    // generate token
-    const token = jwt.sign("41224d776a326fb40f000000", JWT_SECRET_KEY);
-
-    const result = await server.executeOperation({
-      query: GET_USER,
-      variables: { token },
-    });
-
-    expect(result.data.getUser).toHaveProperty(
-      "id",
-      "41224d776a326fb40f000000"
-    );
-    expect(result.data.getUser).toHaveProperty("username", "laza1");
-  });
-});
-
-describe("given a fake token", () => {
-  it("should return 'user not found' error ", async () => {
-    // generate token
-    const token = jwt.sign("41224d776a326fb40f000007", JWT_SECRET_KEY);
-
-    const result = await server.executeOperation({
-      query: GET_USER,
-      variables: { token },
-    });
-
-    expect(result.errors[0].message).toEqual("User not found");
-  });
-});
