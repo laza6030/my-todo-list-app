@@ -62,7 +62,6 @@ export const SIGN_IN = gql`
   mutation SignIn($input: UserInput!) {
     signIn(input: $input) {
       token
-      defaultWorkspaceId
     }
   }
 `;

@@ -12,7 +12,6 @@ import { UserInput } from "./../../../__generated__/globalTypes";
 export interface SignIn_signIn {
   __typename: "SignIn";
   token: string;
-  defaultWorkspaceId: string;
 }
 
 export interface SignIn {

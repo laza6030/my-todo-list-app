@@ -14,7 +14,6 @@ input UserInput {
 
 type SignIn {
   token: String!
-  defaultWorkspaceId: String!
 }
 
 type SignUp {

@@ -52,7 +52,6 @@ export type UserInput = {
 export type SignIn = {
   __typename?: 'SignIn';
   token: Scalars['String'];
-  defaultWorkspaceId: Scalars['String'];
 };
 
 export type SignUp = {
@@ -190,7 +189,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type SignInResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignIn'] = ResolversParentTypes['SignIn']> = {
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  defaultWorkspaceId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

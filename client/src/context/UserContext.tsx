@@ -1,11 +1,12 @@
 import { createContext } from "react";
 
-import { GetUser_getUser } from "../graphql/__generated__/GetUser";
+import { Me_me } from "../graphql/__generated__/Me";
 import { useGetMe } from "../hooks";
 
-export const UserContext = createContext<Omit<GetUser_getUser, "__typename">>({
+export const UserContext = createContext<Omit<Me_me, "__typename">>({
   id: "",
   username: "",
+  defaultWorkspaceId: "",
 });
 
 interface IProps {
@@ -19,7 +20,11 @@ export const UserProvider = (props: IProps) => {
 
   return (
     <UserContext.Provider
-      value={{ id: user?.id ?? "", username: user?.username ?? "" }}
+      value={{
+        id: user?.id ?? "",
+        username: user?.username ?? "",
+        defaultWorkspaceId: user?.defaultWorkspaceId ?? "",
+      }}
     >
       {children}
     </UserContext.Provider>

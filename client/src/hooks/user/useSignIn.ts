@@ -1,11 +1,17 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { ApolloError, useMutation } from "@apollo/client";
+
 import { SIGN_IN } from "../../graphql/mutation";
 import { SignIn, SignInVariables } from "../../graphql/__generated__/SignIn";
 import { APOLLO_ERROR_CODE } from "../../constants";
 import { useDisplayer } from "../useDisplayer";
 
+import { UserContext } from "../../context/UserContext";
+
 export const useSignIn = () => {
+  const { defaultWorkspaceId } = useContext(UserContext);
   const navigate = useNavigate();
   const { displayError } = useDisplayer();
 
@@ -14,7 +20,7 @@ export const useSignIn = () => {
     {
       onCompleted: (data: SignIn) => {
         if (data.signIn) {
-          const { token, defaultWorkspaceId } = data.signIn;
+          const { token } = data.signIn;
           localStorage.setItem("token", token);
           navigate(`/dashboard/${defaultWorkspaceId}`);
           window.location.reload();
