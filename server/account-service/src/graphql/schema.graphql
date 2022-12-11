@@ -1,6 +1,5 @@
 type Query {
   me: User
-  getUser(token: String!): User
 }
 
 type Mutation {
@@ -25,8 +24,7 @@ type SignUp {
   token: String!
 }
 
-type User {
-  id: ID
+type User @key(fields: "id") {
+  id: ID!
   username: String
-  defaultWorkspaceId: ID
 }

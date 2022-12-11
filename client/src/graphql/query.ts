@@ -29,15 +29,6 @@ export const GET_TASKS_BY_COLUMN = gql`
   }
 `;
 
-export const GET_USER = gql`
-  query GetUser($token: String!) {
-    getUser(token: $token) {
-      id
-      username
-    }
-  }
-`;
-
 export const GET_WORKSPACE = gql`
   query GetWorkspace($userId: String!) {
     getWorkspace(userId: $userId) {

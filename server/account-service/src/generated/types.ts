@@ -18,14 +18,14 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<Scalars['String']>;
-  getUser?: Maybe<User>;
+  me?: Maybe<User>;
+  _entities: Array<Maybe<_Entity>>;
   _service: _Service;
 };
 
 
-export type QueryGetUserArgs = {
-  token: Scalars['String'];
+export type Query_EntitiesArgs = {
+  representations: Array<Scalars['_Any']>;
 };
 
 export type Mutation = {
@@ -65,15 +65,16 @@ export type SignUp = {
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
   username?: Maybe<Scalars['String']>;
-  defaultWorkspaceId?: Maybe<Scalars['ID']>;
 };
 
 export type _Service = {
   __typename?: '_Service';
   sdl?: Maybe<Scalars['String']>;
 };
+
+export type _Entity = User;
 
 
 
@@ -145,9 +146,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  String: ResolverTypeWrapper<Scalars['String']>;
   SignIn: ResolverTypeWrapper<SignIn>;
   SignUp: ResolverTypeWrapper<SignUp>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -155,15 +156,16 @@ export type ResolversTypes = {
   _FieldSet: ResolverTypeWrapper<Scalars['_FieldSet']>;
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _Service: ResolverTypeWrapper<_Service>;
+  _Entity: ResolversTypes['User'];
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  String: Scalars['String'];
   Mutation: {};
   UserInput: UserInput;
+  String: Scalars['String'];
   SignIn: SignIn;
   SignUp: SignUp;
   ID: Scalars['ID'];
@@ -171,12 +173,13 @@ export type ResolversParentTypes = {
   _FieldSet: Scalars['_FieldSet'];
   _Any: Scalars['_Any'];
   _Service: _Service;
+  _Entity: ResolversParentTypes['User'];
   Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  me?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'token'>>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  _entities?: Resolver<Array<Maybe<ResolversTypes['_Entity']>>, ParentType, ContextType, RequireFields<Query_EntitiesArgs, 'representations'>>;
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
 };
 
@@ -200,9 +203,8 @@ export type SignUpResolvers<ContextType = any, ParentType extends ResolversParen
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  defaultWorkspaceId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -219,6 +221,10 @@ export type _ServiceResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type _EntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['_Entity'] = ResolversParentTypes['_Entity']> = {
+  __resolveType: TypeResolveFn<'User', ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -228,5 +234,6 @@ export type Resolvers<ContextType = any> = {
   _FieldSet?: GraphQLScalarType;
   _Any?: GraphQLScalarType;
   _Service?: _ServiceResolvers<ContextType>;
+  _Entity?: _EntityResolvers<ContextType>;
 };
 
