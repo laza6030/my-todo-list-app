@@ -9,9 +9,9 @@
 
 export interface Me_me {
   __typename: "User";
-  id: string | null;
+  id: string;
   username: string | null;
-  defaultWorkspaceId: string | null;
+  defaultWorkspaceId: string;
 }
 
 export interface Me {

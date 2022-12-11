@@ -10,6 +10,8 @@ import {
     deleteWorkspace,
 } from './mutation'
 
+import User from './user'
+
 export default {
     Query: { getColumns, getTasksByColumn, getWorkspace },
     Mutation: {
@@ -22,4 +24,5 @@ export default {
         createWorkspace,
         deleteWorkspace,
     },
+    ...User,
 }
