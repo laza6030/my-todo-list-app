@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 
 import {
@@ -9,12 +13,10 @@ import {
   HttpLink,
   ApolloLink,
 } from "@apollo/client";
-import { BrowserRouter } from "react-router-dom";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { SnackbarProvider } from "notistack";
 
 import { UserProvider } from "./context/UserContext";
+import { ModeProvider } from "./context/ModeContext";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./index.css";
@@ -48,17 +50,19 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <StyledEngineProvider injectFirst>
-          <DndProvider backend={HTML5Backend}>
-            <BrowserRouter>
-              <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
-                <UserProvider>
-                  <App />
-                </UserProvider>
-              </SnackbarProvider>
-            </BrowserRouter>
-          </DndProvider>
-        </StyledEngineProvider>
+        <ModeProvider>
+          <StyledEngineProvider injectFirst>
+            <DndProvider backend={HTML5Backend}>
+              <BrowserRouter>
+                <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
+                  <UserProvider>
+                    <App />
+                  </UserProvider>
+                </SnackbarProvider>
+              </BrowserRouter>
+            </DndProvider>
+          </StyledEngineProvider>
+        </ModeProvider>
       </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>
