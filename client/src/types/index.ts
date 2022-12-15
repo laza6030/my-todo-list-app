@@ -1,6 +1,6 @@
 export type Mode = "light" | "dark";
 
-export interface IModeContext {
+export interface IThemeContext {
   mode: Mode;
-  changeMode: (mode: Mode) => void;
+  changeMode: () => void;
 }

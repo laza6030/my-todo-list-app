@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 import {
   ApolloClient,
@@ -15,13 +15,11 @@ import {
 } from "@apollo/client";
 import { SnackbarProvider } from "notistack";
 
+import { ThemeProvider } from "./context/ThemeContext";
 import { UserProvider } from "./context/UserContext";
-import { ModeProvider } from "./context/ModeContext";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./index.css";
-
-import { theme } from "./theme";
 
 const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
 
@@ -49,20 +47,18 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <ModeProvider>
-          <StyledEngineProvider injectFirst>
-            <DndProvider backend={HTML5Backend}>
-              <BrowserRouter>
-                <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
-                  <UserProvider>
-                    <App />
-                  </UserProvider>
-                </SnackbarProvider>
-              </BrowserRouter>
-            </DndProvider>
-          </StyledEngineProvider>
-        </ModeProvider>
+      <ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <DndProvider backend={HTML5Backend}>
+            <BrowserRouter>
+              <SnackbarProvider maxSnack={1} autoHideDuration={1500}>
+                <UserProvider>
+                  <App />
+                </UserProvider>
+              </SnackbarProvider>
+            </BrowserRouter>
+          </DndProvider>
+        </StyledEngineProvider>
       </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>

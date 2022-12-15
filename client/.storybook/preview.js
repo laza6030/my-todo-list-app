@@ -1,9 +1,7 @@
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import { theme } from "../src/theme";
+import { ThemeProvider } from "../src/context/ThemeContext";
 
 export const withMuiTheme = (Story) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
+  <ThemeProvider>
     <Story />
   </ThemeProvider>
 );

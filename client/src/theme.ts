@@ -13,3 +13,17 @@ export const theme = createTheme({
     },
   },
 });
+
+export const darkModeTheme = createTheme({
+  palette: {
+    background: {
+      default: "#FF0000",
+      paper: "#0000FF",
+    },
+
+    text: {
+      primary: "#00FF00",
+      secondary: "#FF0000",
+    },
+  },
+});

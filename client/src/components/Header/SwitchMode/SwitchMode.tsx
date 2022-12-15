@@ -4,19 +4,19 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import IconButton from "@mui/material/IconButton";
 
-import { ModeContext } from "../../../context/ModeContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const SwitchMode = () => {
-  const { mode, changeMode } = useContext(ModeContext);
+  const { mode, changeMode } = useContext(ThemeContext);
 
   return (
     <>
       {mode === "dark" ? (
-        <IconButton onClick={() => changeMode("dark")}>
+        <IconButton onClick={changeMode}>
           <LightModeIcon />
         </IconButton>
       ) : (
-        <IconButton onClick={() => changeMode("light")}>
+        <IconButton onClick={changeMode}>
           <DarkModeIcon />
         </IconButton>
       )}

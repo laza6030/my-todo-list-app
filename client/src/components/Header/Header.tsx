@@ -8,6 +8,8 @@ import AppBar from "@mui/material/AppBar";
 
 import { UserContext } from "../../context/UserContext";
 
+import SwitchMode from "./SwitchMode";
+
 import { useStyles } from "./styles";
 
 const Header = () => {
@@ -24,6 +26,8 @@ const Header = () => {
       <Typography classes={{ root: classes.userName }}>
         <AccountCircleIcon classes={{ root: classes.userIcon }} /> {username}
       </Typography>
+
+      <SwitchMode />
 
       <IconButton onClick={handleLogout}>
         <LogoutIcon />
