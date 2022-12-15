@@ -1,3 +1,4 @@
+import { buildSubgraphSchema } from '@apollo/subgraph'
 import { ApolloServer } from 'apollo-server'
 import 'graphql-import-node'
 import mongoose from 'mongoose'
@@ -20,7 +21,9 @@ import {
     DELETE_WORKSPACE,
 } from './utils'
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+    schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+})
 
 beforeAll(async () => {
     const mongod = await MongoMemoryServer.create()

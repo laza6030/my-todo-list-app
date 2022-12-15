@@ -1,8 +1,9 @@
+import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
-    backgroundColor: "#bb52c9",
+    backgroundColor: theme.palette.background.default,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -16,4 +17,4 @@ export const useStyles = makeStyles({
   userIcon: {
     marginRight: 5,
   },
-});
+}));
