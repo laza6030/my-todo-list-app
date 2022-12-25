@@ -7,6 +7,7 @@ export default {
   component: SwitchMode,
 } as ComponentMeta<typeof SwitchMode>;
 
-export const LigthMode: ComponentStory<typeof SwitchMode> = () => (
+export const SwitchModeStory: ComponentStory<typeof SwitchMode> = () => (
   <SwitchMode />
 );
+SwitchModeStory.storyName = "I'm the SwitchMode story";
