@@ -3,6 +3,6 @@ import { Theme } from "@mui/material/styles";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    background: theme.palette.primary.main,
+    background: theme.palette.background.default,
   },
 }));

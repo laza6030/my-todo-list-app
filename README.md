@@ -81,6 +81,7 @@ docker-compose up
 
 ```
 cd client
+npm run install
 npm run start
 ```
 
