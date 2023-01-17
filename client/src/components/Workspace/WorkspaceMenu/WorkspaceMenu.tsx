@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
@@ -48,6 +49,7 @@ const WorkspaceMenu = (props: IProps) => {
         justifyContent="center"
         classes={{ root: classes.title }}
       >
+        <DashboardIcon classes={{ root: classes.icon }} />
         <Typography>Your Workspace</Typography>
         <Divider classes={{ root: classes.divider }} />
       </Grid>
