@@ -50,6 +50,7 @@ const WorkspaceItem = (props: IProps) => {
 
   return (
     <Grid
+      container
       onMouseEnter={() => setShowMenu(true)}
       onMouseLeave={() => setShowMenu(false)}
       classes={{ root: classes.root }}

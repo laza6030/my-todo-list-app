@@ -1,24 +1,24 @@
+import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: 40,
     marginBottom: 3,
-    backgroundColor: "#d5b4b4",
     width: "100%",
     display: "flex",
     alignItems: "center",
-    paddingLeft: 10,
-    color: "#414345",
+    borderBottom: `1px solid ${theme.palette.background.disabled}`,
 
     "&:hover": {
-      backgroundColor: "#dbcaca",
       cursor: "pointer",
     },
   },
 
   link: {
     textDecoration: "none",
+    paddingLeft: 10,
+    color: theme.palette.text.primary,
   },
 
   iconButton: {
@@ -28,4 +28,4 @@ export const useStyles = makeStyles({
   startIcon: {
     marginRight: 10,
   },
-});
+}));

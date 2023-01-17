@@ -3,8 +3,9 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     background: {
-      default: "#f2ebd8",
+      default: "#82a6ed",
       paper: "#a9c2cc",
+      disabled: "#9bacc2",
     },
 
     text: {
@@ -17,7 +18,7 @@ export const theme = createTheme({
 export const darkModeTheme = createTheme({
   palette: {
     background: {
-      default: "#FF0000",
+      default: "#28251d",
       paper: "#0000FF",
     },
 
