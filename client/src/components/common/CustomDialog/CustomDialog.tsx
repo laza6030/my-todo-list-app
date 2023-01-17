@@ -1,10 +1,12 @@
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 
-interface IProps {
+import { useStyles } from "./styles";
+
+export interface IProps {
   title?: string;
   content?: React.ReactNode;
   cancelLabel?: string;
@@ -27,6 +29,8 @@ const CustomDialog = (props: IProps) => {
     onClose,
   } = props;
 
+  const classes = useStyles();
+
   const handleCancel = () => {
     onCancel?.();
     onClose?.();
@@ -38,7 +42,7 @@ const CustomDialog = (props: IProps) => {
   };
 
   return (
-    <Dialog open onClose={onClose}>
+    <Dialog open onClose={onClose} classes={{ paper: classes.paper }}>
       {title && <DialogTitle>{title}</DialogTitle>}
 
       {content && <DialogContent>{content}</DialogContent>}

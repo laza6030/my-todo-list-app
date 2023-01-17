@@ -1,15 +1,15 @@
-import { useState, useContext, ChangeEvent } from "react";
+import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 
 import { UserContext } from "../../context/UserContext";
-import CustomDialog from "../common/CustomDialog";
-import Column from "../Column";
 import WorkspaceMenu from "./WorkspaceMenu";
+import Column from "../Column";
+
+import InputDialog from "../common/InputDialog";
 
 import { useCreateColumn, useGetColumns, useGetWorkspace } from "../../hooks";
 
@@ -22,7 +22,7 @@ const Workspace = () => {
   const { id } = useContext(UserContext);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [input, setInput] = useState<string>("");
+  const [columnName, setColumnName] = useState<string>("");
 
   const { workspace } = useGetWorkspace(id!);
   const { data } = useGetColumns(workspaceId!);
@@ -30,16 +30,21 @@ const Workspace = () => {
 
   const handleOpenDialog = () => setOpenDialog((openDialog) => !openDialog);
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => setInput(event.target.value);
-
   const handleCreateColumn = () => {
-    if (workspaceId && input) {
-      createColumn({ name: input, workspaceId });
-      setInput("");
+    if (workspaceId && columnName) {
+      createColumn({ name: columnName, workspaceId });
+      setColumnName("");
     }
   };
+
+  const handleCancel = () => {
+    setOpenDialog(false);
+    setColumnName("");
+  };
+
+  const isError =
+    data?.getColumns?.filter((column) => column?.name === columnName).length !==
+    0;
 
   return (
     <Grid container>
@@ -71,19 +76,16 @@ const Workspace = () => {
       </Grid>
 
       {openDialog && (
-        <CustomDialog
+        <InputDialog
           onClose={() => setOpenDialog(false)}
           onSubmit={handleCreateColumn}
-          title="Enter column name"
-          disableConfirmButton={!input}
-          content={
-            <Input
-              value={input}
-              placeholder="column name"
-              name="input"
-              onChange={handleInputChange}
-            />
-          }
+          onCancel={handleCancel}
+          title="Create new column"
+          placeholder="enter column name"
+          disableConfirmButton={!columnName}
+          isError={isError}
+          errorMessage="column with the same name already exits"
+          handleInputChange={(input: string) => setColumnName(input)}
         />
       )}
     </Grid>

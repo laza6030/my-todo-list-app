@@ -2,13 +2,12 @@ import { ChangeEvent, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 
-import Input from "@mui/material/Input";
-import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
 
-import CustomDialog from "../common/CustomDialog";
+import InputDialog from "../common/InputDialog";
 import Task from "../Task";
 import Header from "./Header";
 
@@ -53,10 +52,6 @@ const Column = (props: IProps) => {
 
   const handleOpenDialog = () => setIsOpen(true);
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => setTaskName(event.target.value);
-
   const handleCloseDialog = () => setIsOpen(false);
 
   const handleSubmit = () => {
@@ -67,6 +62,10 @@ const Column = (props: IProps) => {
   const handleRefetch = () => {
     refetch();
   };
+
+  const isError =
+    data?.getTasksByColumn?.filter(({ name }) => name === taskName).length !==
+    0;
 
   return (
     <Grid
@@ -104,19 +103,16 @@ const Column = (props: IProps) => {
       </Grid>
 
       {isOpen && (
-        <CustomDialog
+        <InputDialog
           title="New task"
           onCancel={handleCloseDialog}
           onClose={handleCloseDialog}
           onSubmit={handleSubmit}
-          content={
-            <Input
-              value={taskName}
-              placeholder="task name"
-              name="input"
-              onChange={handleInputChange}
-            />
-          }
+          errorMessage="task with the same name already exists"
+          handleInputChange={(input: string) => setTaskName(input)}
+          isError={isError}
+          disableConfirmButton={!taskName}
+          placeholder="enter task name"
         />
       )}
     </Grid>
