@@ -7,9 +7,8 @@ import Grid from "@mui/material/Grid";
 
 import { UserContext } from "../../context/UserContext";
 import WorkspaceMenu from "./WorkspaceMenu";
-import Column from "../Column";
-
 import InputDialog from "../common/InputDialog";
+import Column from "../Column";
 
 import { useCreateColumn, useGetColumns, useGetWorkspace } from "../../hooks";
 
