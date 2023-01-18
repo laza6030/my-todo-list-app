@@ -20,4 +20,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     paddingRight: 5,
   },
+
+  errorMessage: {
+    color: theme.palette.error.main,
+    fontSize: 12,
+  },
 }));

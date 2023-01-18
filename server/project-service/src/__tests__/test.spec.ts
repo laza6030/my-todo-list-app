@@ -19,6 +19,7 @@ import {
     CREATE_WORKSPACE,
     GET_COLUMNS,
     DELETE_WORKSPACE,
+    CREATE_TASK,
 } from './utils'
 
 const server = new ApolloServer({
@@ -54,6 +55,49 @@ describe('Given a column name and a workspace id', () => {
     })
 })
 
+// Column name should be unique in a workspace
+describe('Given a column name that already exists', () => {
+    it('should return column with the same name already exisits error', async () => {
+        const column = new ColumnModel({
+            name: 'new column',
+            workspaceId: '6365604e5739438d091a2dbf',
+        })
+
+        await column.save()
+
+        const result = await server.executeOperation({
+            query: CREATE_COLUMN,
+            variables: {
+                name: 'new column',
+                workspaceId: '6365604e5739438d091a2dbf',
+            },
+        })
+
+        expect(result.errors[0].message).toEqual(
+            'Column with the same name already exists'
+        )
+    })
+})
+
+// Create task
+describe('given a columnId and a task name', () => {
+    it.only('should create and return new task', async () => {
+        const result = await server.executeOperation({
+            query: CREATE_TASK,
+            variables: {
+                columnId: '6365604e5739438d091a2dbe',
+                name: 'my task',
+            },
+        })
+
+        expect(result.data.createTask).toHaveProperty(
+            'columnId',
+            '6365604e5739438d091a2dbe'
+        )
+        expect(result.data.createTask).toHaveProperty('name', 'my task')
+    })
+})
+
 // Get columns
 describe('given a workspaceId', () => {
     it('should return all related colums', async () => {
@@ -79,14 +123,14 @@ describe('Given a name and a userId', () => {
         const result = await server.executeOperation({
             query: CREATE_WORKSPACE,
             variables: {
-                name: 'my workspace',
+                name: 'new workspace',
                 userId: '41224d776a326fb40f000000',
             },
         })
 
         expect(result.data.createWorkspace).toHaveProperty(
             'name',
-            'my workspace'
+            'new workspace'
         )
         expect(result.data.createWorkspace).toHaveProperty(
             'userId',
@@ -95,7 +139,32 @@ describe('Given a name and a userId', () => {
     })
 })
 
-// Add workspace name should be unique test
+// workspace name should be unique test
+
+describe('Given a workspace name that already exists', () => {
+    it('should return workspace with same name already exists error', async () => {
+        const workspace1 = new WorkspaceModel({
+            _id: '6365604e5739438d091a2dbd',
+            name: 'workspace1',
+            userId: '41224d776a326fb40f000002',
+        })
+
+        await workspace1.save()
+
+        const result = await server.executeOperation({
+            query: CREATE_WORKSPACE,
+            variables: {
+                _id: '6365604e5739438d091a2dbf',
+                name: 'workspace1',
+                userId: '41224d776a326fb40f000002',
+            },
+        })
+
+        expect(result.errors[0].message).toEqual(
+            'Workspace with the same name already exists'
+        )
+    })
+})
 
 // Get workspace
 describe('Given a user id', () => {

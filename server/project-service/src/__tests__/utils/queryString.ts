@@ -39,3 +39,12 @@ export const DELETE_WORKSPACE = `
         deleteWorkspace(workspaceId: $workspaceId)
     }
 `
+export const CREATE_TASK = `
+    mutation CreateTask($columnId: String!, $name: String!) {
+        createTask(columnId: $columnId, name: $name) {
+            id
+            columnId
+            name
+        }
+    }
+`

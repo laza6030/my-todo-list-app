@@ -12,6 +12,10 @@ export const theme = createTheme({
       primary: "#000",
       secondary: "#1874a5",
     },
+
+    error: {
+      main: "#f72e20",
+    },
   },
 });
 

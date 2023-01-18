@@ -5,11 +5,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
 
 import { useCreateWorkspace } from "../../../hooks";
-import CustomDialog from "../../common/CustomDialog";
+import InputDialog from "../../common/InputDialog";
 import WorkspaceItem from "./WorkspaceItem";
 import { GetWorkspace_getWorkspace } from "../../../graphql/__generated__/GetWorkspace";
 
@@ -34,6 +33,15 @@ const WorkspaceMenu = (props: IProps) => {
   const handleCreateWorkspace = () => {
     createWorkspace({ name: workspaceName, userId });
   };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+    setWorkspaceName("");
+  };
+
+  const isError =
+    workspace?.filter((workspace) => workspace?.name === workspaceName)
+      .length !== 0;
 
   return (
     <Grid
@@ -69,19 +77,15 @@ const WorkspaceMenu = (props: IProps) => {
       </Button>
 
       {isOpen && (
-        <CustomDialog
+        <InputDialog
           title="Create workspace"
-          onCancel={() => setIsOpen(false)}
+          onCancel={handleCancel}
           onSubmit={handleCreateWorkspace}
           disableConfirmButton={!workspaceName}
-          content={
-            <Input
-              placeholder="workspace name"
-              onChange={(
-                event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => setWorkspaceName(event.target.value)}
-            />
-          }
+          errorMessage="Workspace with the same name already exits"
+          isError={isError}
+          placeholder="enter workspace name"
+          handleInputChange={(input: string) => setWorkspaceName(input)}
         />
       )}
     </Grid>
