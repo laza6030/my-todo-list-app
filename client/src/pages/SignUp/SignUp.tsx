@@ -54,6 +54,7 @@ const SignUp = () => {
         <TextField
           name="username"
           onChange={onChange}
+          inputProps={{ "data-cy": "username" }}
           placeholder="Just pick a cool username ;)"
         />
       </Grid>
@@ -62,6 +63,7 @@ const SignUp = () => {
         <TextField
           name="password"
           onChange={onChange}
+          inputProps={{ "data-cy": "password" }}
           placeholder="Choose anything you want"
           type="password"
         />
