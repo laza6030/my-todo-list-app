@@ -15,7 +15,8 @@ export const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
   },
 
-  userIcon: {
+  icon: {
     marginRight: 5,
+    color: theme.palette.primary.main,
   },
 }));
