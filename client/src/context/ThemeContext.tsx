@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode } from "react";
 import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 
-import { theme as defaultTheme, darkModeTheme } from "../theme";
+import { lightModeTheme, darkModeTheme } from "../theme";
 import { IThemeContext, Mode } from "../types";
 
 export const ThemeContext = createContext<IThemeContext>({
@@ -39,7 +39,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         changeMode,
       }}
     >
-      <MUIThemeProvider theme={mode === "light" ? defaultTheme : darkModeTheme}>
+      <MUIThemeProvider
+        theme={mode === "light" ? lightModeTheme : darkModeTheme}
+      >
         {children}
       </MUIThemeProvider>
     </ThemeContext.Provider>

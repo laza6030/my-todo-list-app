@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 
