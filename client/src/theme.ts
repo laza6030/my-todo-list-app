@@ -10,6 +10,7 @@ export const lightModeTheme = createTheme({
       default: "#82a6ed",
       paper: "#a9c2cc",
       disabled: "#9bacc2",
+      secondary: "#dbcaca",
     },
 
     text: {
