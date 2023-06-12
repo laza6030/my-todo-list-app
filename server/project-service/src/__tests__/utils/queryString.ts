@@ -40,11 +40,12 @@ export const DELETE_WORKSPACE = `
     }
 `
 export const CREATE_TASK = `
-    mutation CreateTask($columnId: String!, $name: String!) {
-        createTask(columnId: $columnId, name: $name) {
+    mutation CreateTask($columnId: String!, $name: String!, $rank: Int!) {
+        createTask(columnId: $columnId, name: $name, rank: $rank) {
             id
             columnId
             name
+            rank
         }
     }
 `

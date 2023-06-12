@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 
@@ -55,7 +55,11 @@ const Column = (props: IProps) => {
   const handleCloseDialog = () => setIsOpen(false);
 
   const handleSubmit = () => {
-    createTask({ columnId: id, name: taskName });
+    createTask({
+      columnId: id,
+      name: taskName,
+      rank: data?.getTasksByColumn?.length ?? 0,
+    });
     setTaskName("");
   };
 

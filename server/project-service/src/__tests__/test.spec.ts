@@ -81,12 +81,13 @@ describe('Given a column name that already exists', () => {
 
 // Create task
 describe('given a columnId and a task name', () => {
-    it.only('should create and return new task', async () => {
+    it('should create and return new task', async () => {
         const result = await server.executeOperation({
             query: CREATE_TASK,
             variables: {
                 columnId: '6365604e5739438d091a2dbe',
                 name: 'my task',
+                rank: 0,
             },
         })
 
@@ -95,6 +96,7 @@ describe('given a columnId and a task name', () => {
             '6365604e5739438d091a2dbe'
         )
         expect(result.data.createTask).toHaveProperty('name', 'my task')
+        expect(result.data.createTask).toHaveProperty('rank', 0)
     })
 })
 

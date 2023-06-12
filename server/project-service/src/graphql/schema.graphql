@@ -8,7 +8,7 @@ type Mutation {
     createColumn(name: String!, workspaceId: String!): Column!
     deleteColumn(id: String!): Boolean!
     renameColumn(id: String!, name: String!): Boolean!
-    createTask(columnId: String!, name: String!): Task
+    createTask(columnId: String!, name: String!, rank: Int!): Task
     deleteTask(id: String!): Boolean
     moveTask(taskId: String!, columnId: String!): Task!
     createWorkspace(name: String!, userId: String!): Workspace
@@ -30,6 +30,7 @@ type Task {
     id: ID!
     columnId: ID!
     name: String!
+    rank: Int!
 }
 
 type Workspace {

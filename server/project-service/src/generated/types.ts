@@ -16,18 +16,12 @@ export type Scalars = {
   _Any: any;
 };
 
-export type Column = {
-  __typename?: 'Column';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  workspaceId: Scalars['ID'];
-};
-
 export type Query = {
   __typename?: 'Query';
   getColumns?: Maybe<Array<Maybe<Column>>>;
   getTasksByColumn?: Maybe<Array<Task>>;
   getWorkspace: Array<Maybe<Workspace>>;
+  _entities: Array<Maybe<_Entity>>;
   _service: _Service;
 };
 
@@ -44,6 +38,11 @@ export type QueryGetTasksByColumnArgs = {
 
 export type QueryGetWorkspaceArgs = {
   userId: Scalars['String'];
+};
+
+
+export type Query_EntitiesArgs = {
+  representations: Array<Scalars['_Any']>;
 };
 
 export type Mutation = {
@@ -79,6 +78,7 @@ export type MutationRenameColumnArgs = {
 export type MutationCreateTaskArgs = {
   columnId: Scalars['String'];
   name: Scalars['String'];
+  rank: Scalars['Int'];
 };
 
 
@@ -103,11 +103,25 @@ export type MutationDeleteWorkspaceArgs = {
   workspaceId: Scalars['String'];
 };
 
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  defaultWorkspaceId: Scalars['ID'];
+};
+
+export type Column = {
+  __typename?: 'Column';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  workspaceId: Scalars['ID'];
+};
+
 export type Task = {
   __typename?: 'Task';
   id: Scalars['ID'];
   columnId: Scalars['ID'];
   name: Scalars['String'];
+  rank: Scalars['Int'];
 };
 
 export type Workspace = {
@@ -121,6 +135,8 @@ export type _Service = {
   __typename?: '_Service';
   sdl?: Maybe<Scalars['String']>;
 };
+
+export type _Entity = User;
 
 
 
@@ -191,32 +207,63 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Column: ResolverTypeWrapper<Column>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Column: ResolverTypeWrapper<Column>;
   Task: ResolverTypeWrapper<Task>;
   Workspace: ResolverTypeWrapper<Workspace>;
   _FieldSet: ResolverTypeWrapper<Scalars['_FieldSet']>;
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _Service: ResolverTypeWrapper<_Service>;
+  _Entity: ResolversTypes['User'];
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Column: Column;
-  ID: Scalars['ID'];
-  String: Scalars['String'];
   Query: {};
+  String: Scalars['String'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
+  Int: Scalars['Int'];
+  User: User;
+  ID: Scalars['ID'];
+  Column: Column;
   Task: Task;
   Workspace: Workspace;
   _FieldSet: Scalars['_FieldSet'];
   _Any: Scalars['_Any'];
   _Service: _Service;
+  _Entity: ResolversParentTypes['User'];
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType, RequireFields<QueryGetColumnsArgs, 'workspaceId'>>;
+  getTasksByColumn?: Resolver<Maybe<Array<ResolversTypes['Task']>>, ParentType, ContextType, RequireFields<QueryGetTasksByColumnArgs, 'columnId'>>;
+  getWorkspace?: Resolver<Array<Maybe<ResolversTypes['Workspace']>>, ParentType, ContextType, RequireFields<QueryGetWorkspaceArgs, 'userId'>>;
+  _entities?: Resolver<Array<Maybe<ResolversTypes['_Entity']>>, ParentType, ContextType, RequireFields<Query_EntitiesArgs, 'representations'>>;
+  _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name' | 'workspaceId'>>;
+  deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>;
+  renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>;
+  createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'columnId' | 'name' | 'rank'>>;
+  deleteTask?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteTaskArgs, 'id'>>;
+  moveTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationMoveTaskArgs, 'taskId' | 'columnId'>>;
+  createWorkspace?: Resolver<Maybe<ResolversTypes['Workspace']>, ParentType, ContextType, RequireFields<MutationCreateWorkspaceArgs, 'name' | 'userId'>>;
+  deleteWorkspace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWorkspaceArgs, 'workspaceId'>>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  defaultWorkspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ColumnResolvers<ContextType = any, ParentType extends ResolversParentTypes['Column'] = ResolversParentTypes['Column']> = {
@@ -226,28 +273,11 @@ export type ColumnResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getColumns?: Resolver<Maybe<Array<Maybe<ResolversTypes['Column']>>>, ParentType, ContextType, RequireFields<QueryGetColumnsArgs, 'workspaceId'>>;
-  getTasksByColumn?: Resolver<Maybe<Array<ResolversTypes['Task']>>, ParentType, ContextType, RequireFields<QueryGetTasksByColumnArgs, 'columnId'>>;
-  getWorkspace?: Resolver<Array<Maybe<ResolversTypes['Workspace']>>, ParentType, ContextType, RequireFields<QueryGetWorkspaceArgs, 'userId'>>;
-  _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
-};
-
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createColumn?: Resolver<ResolversTypes['Column'], ParentType, ContextType, RequireFields<MutationCreateColumnArgs, 'name' | 'workspaceId'>>;
-  deleteColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteColumnArgs, 'id'>>;
-  renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>;
-  createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'columnId' | 'name'>>;
-  deleteTask?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteTaskArgs, 'id'>>;
-  moveTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationMoveTaskArgs, 'taskId' | 'columnId'>>;
-  createWorkspace?: Resolver<Maybe<ResolversTypes['Workspace']>, ParentType, ContextType, RequireFields<MutationCreateWorkspaceArgs, 'name' | 'userId'>>;
-  deleteWorkspace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWorkspaceArgs, 'workspaceId'>>;
-};
-
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   columnId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rank?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -271,14 +301,20 @@ export type _ServiceResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type _EntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['_Entity'] = ResolversParentTypes['_Entity']> = {
+  __resolveType: TypeResolveFn<'User', ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
-  Column?: ColumnResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  Column?: ColumnResolvers<ContextType>;
   Task?: TaskResolvers<ContextType>;
   Workspace?: WorkspaceResolvers<ContextType>;
   _FieldSet?: GraphQLScalarType;
   _Any?: GraphQLScalarType;
   _Service?: _ServiceResolvers<ContextType>;
+  _Entity?: _EntityResolvers<ContextType>;
 };
 
