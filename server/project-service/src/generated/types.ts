@@ -27,17 +27,17 @@ export type Query = {
 
 
 export type QueryGetColumnsArgs = {
-  workspaceId: Scalars['String'];
+  workspaceId: Scalars['ID'];
 };
 
 
 export type QueryGetTasksByColumnArgs = {
-  columnId: Scalars['String'];
+  columnId: Scalars['ID'];
 };
 
 
 export type QueryGetWorkspaceArgs = {
-  userId: Scalars['String'];
+  userId: Scalars['ID'];
 };
 
 
@@ -60,7 +60,7 @@ export type Mutation = {
 
 export type MutationCreateColumnArgs = {
   name: Scalars['String'];
-  workspaceId: Scalars['String'];
+  workspaceId: Scalars['ID'];
 };
 
 
@@ -76,7 +76,7 @@ export type MutationRenameColumnArgs = {
 
 
 export type MutationCreateTaskArgs = {
-  columnId: Scalars['String'];
+  columnId: Scalars['ID'];
   name: Scalars['String'];
   rank: Scalars['Int'];
 };
@@ -88,19 +88,20 @@ export type MutationDeleteTaskArgs = {
 
 
 export type MutationMoveTaskArgs = {
-  taskId: Scalars['String'];
-  columnId: Scalars['String'];
+  taskId: Scalars['ID'];
+  columnId: Scalars['ID'];
+  rank: Scalars['Int'];
 };
 
 
 export type MutationCreateWorkspaceArgs = {
   name: Scalars['String'];
-  userId: Scalars['String'];
+  userId: Scalars['ID'];
 };
 
 
 export type MutationDeleteWorkspaceArgs = {
-  workspaceId: Scalars['String'];
+  workspaceId: Scalars['ID'];
 };
 
 export type User = {
@@ -208,12 +209,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Column: ResolverTypeWrapper<Column>;
   Task: ResolverTypeWrapper<Task>;
   Workspace: ResolverTypeWrapper<Workspace>;
@@ -226,12 +227,12 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  String: Scalars['String'];
+  ID: Scalars['ID'];
   Mutation: {};
+  String: Scalars['String'];
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
   User: User;
-  ID: Scalars['ID'];
   Column: Column;
   Task: Task;
   Workspace: Workspace;
@@ -255,7 +256,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   renameColumn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRenameColumnArgs, 'id' | 'name'>>;
   createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'columnId' | 'name' | 'rank'>>;
   deleteTask?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteTaskArgs, 'id'>>;
-  moveTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationMoveTaskArgs, 'taskId' | 'columnId'>>;
+  moveTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<MutationMoveTaskArgs, 'taskId' | 'columnId' | 'rank'>>;
   createWorkspace?: Resolver<Maybe<ResolversTypes['Workspace']>, ParentType, ContextType, RequireFields<MutationCreateWorkspaceArgs, 'name' | 'userId'>>;
   deleteWorkspace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWorkspaceArgs, 'workspaceId'>>;
 };
