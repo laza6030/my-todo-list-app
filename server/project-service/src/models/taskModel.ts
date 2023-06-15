@@ -11,6 +11,11 @@ const TaskSchema = new Schema<ITask>({
         type: Schema.Types.ObjectId,
         required: true,
     },
+
+    rank: {
+        type: Schema.Types.Number,
+        required: true,
+    },
 })
 
 const Task = model('Task', TaskSchema)

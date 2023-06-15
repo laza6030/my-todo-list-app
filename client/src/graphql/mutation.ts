@@ -22,11 +22,12 @@ export const RENAME_COLUMN = gql`
 `;
 
 export const CREATE_TASK = gql`
-  mutation CreateTask($columnId: String!, $name: String!) {
-    createTask(columnId: $columnId, name: $name) {
+  mutation CreateTask($columnId: String!, $name: String!, $rank: Int!) {
+    createTask(columnId: $columnId, name: $name, rank: $rank) {
       id
       name
       columnId
+      rank
     }
   }
 `;

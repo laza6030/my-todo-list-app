@@ -1,18 +1,18 @@
 type Query {
-    getColumns(workspaceId: String!): [Column]
-    getTasksByColumn(columnId: String!): [Task!]
-    getWorkspace(userId: String!): [Workspace]!
+    getColumns(workspaceId: ID!): [Column]
+    getTasksByColumn(columnId: ID!): [Task!]
+    getWorkspace(userId: ID!): [Workspace]!
 }
 
 type Mutation {
-    createColumn(name: String!, workspaceId: String!): Column!
+    createColumn(name: String!, workspaceId: ID!): Column!
     deleteColumn(id: String!): Boolean!
     renameColumn(id: String!, name: String!): Boolean!
-    createTask(columnId: String!, name: String!): Task
+    createTask(columnId: ID!, name: String!, rank: Int!): Task
     deleteTask(id: String!): Boolean
-    moveTask(taskId: String!, columnId: String!): Task!
-    createWorkspace(name: String!, userId: String!): Workspace
-    deleteWorkspace(workspaceId: String!): Boolean!
+    moveTask(taskId: ID!, columnId: ID!, rank: Int!): Task!
+    createWorkspace(name: String!, userId: ID!): Workspace
+    deleteWorkspace(workspaceId: ID!): Boolean!
 }
 
 type User @key(fields: "id") {
@@ -30,6 +30,7 @@ type Task {
     id: ID!
     columnId: ID!
     name: String!
+    rank: Int!
 }
 
 type Workspace {

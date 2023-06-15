@@ -12,6 +12,7 @@ export interface CreateTask_createTask {
   id: string;
   name: string;
   columnId: string;
+  rank: number;
 }
 
 export interface CreateTask {
@@ -21,4 +22,5 @@ export interface CreateTask {
 export interface CreateTaskVariables {
   columnId: string;
   name: string;
+  rank: number;
 }

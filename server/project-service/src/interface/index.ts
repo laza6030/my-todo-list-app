@@ -10,6 +10,7 @@ export interface ITask {
     id: Types.ObjectId
     name: string
     columnId: Types.ObjectId
+    rank: number
 }
 
 export interface IWorkspace {
