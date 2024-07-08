@@ -33,7 +33,7 @@ const Column = (props: IProps) => {
   const [taskName, setTaskName] = useState<string>("");
   const { deleteColumn } = useDeleteColumn(workspaceId!);
   const { mutate: renameColumn } = useRenameColumn();
-  const { createTask, loading } = useCreateTask(id);
+  const { createTask, loading: createTaskLoading } = useCreateTask(id);
   const { data, refetch } = useGetTasksByColumn(id);
   const { moveTask } = useMoveTask(id);
 
@@ -98,7 +98,7 @@ const Column = (props: IProps) => {
 
       <Grid item>
         <IconButton
-          disabled={loading}
+          disabled={createTaskLoading}
           onClick={handleOpenDialog}
           classes={{ root: classes.addButton }}
         >

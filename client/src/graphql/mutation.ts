@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_COLUMN = gql`
-  mutation CreateColumn($name: String!, $workspaceId: String!) {
+  mutation CreateColumn($name: String!, $workspaceId: ID!) {
     createColumn(name: $name, workspaceId: $workspaceId) {
       id
       name
@@ -10,19 +10,19 @@ export const CREATE_COLUMN = gql`
 `;
 
 export const DELETE_COLUMN = gql`
-  mutation DeleteColumn($id: String!) {
+  mutation DeleteColumn($id: ID!) {
     deleteColumn(id: $id)
   }
 `;
 
 export const RENAME_COLUMN = gql`
-  mutation RenameColumn($id: String!, $name: String!) {
+  mutation RenameColumn($id: ID!, $name: String!) {
     renameColumn(id: $id, name: $name)
   }
 `;
 
 export const CREATE_TASK = gql`
-  mutation CreateTask($columnId: String!, $name: String!, $rank: Int!) {
+  mutation CreateTask($columnId: ID!, $name: String!, $rank: Int!) {
     createTask(columnId: $columnId, name: $name, rank: $rank) {
       id
       name
@@ -33,13 +33,13 @@ export const CREATE_TASK = gql`
 `;
 
 export const DELETE_TASK = gql`
-  mutation DeleteTask($id: String!) {
+  mutation DeleteTask($id: ID!) {
     deleteTask(id: $id)
   }
 `;
 
 export const MOVE_TASK = gql`
-  mutation MoveTask($taskId: String!, $columnId: String!) {
+  mutation MoveTask($taskId: ID!, $columnId: ID!) {
     moveTask(taskId: $taskId, columnId: $columnId) {
       id
       name
@@ -68,7 +68,7 @@ export const SIGN_IN = gql`
 `;
 
 export const CREATE_WORKSPACE = gql`
-  mutation CreateWorkspace($name: String!, $userId: String!) {
+  mutation CreateWorkspace($name: String!, $userId: ID!) {
     createWorkspace(name: $name, userId: $userId) {
       id
       name
@@ -78,7 +78,7 @@ export const CREATE_WORKSPACE = gql`
 `;
 
 export const DELETE_WORKSPACE = gql`
-  mutation DeleteWorkspace($workspaceId: String!) {
+  mutation DeleteWorkspace($workspaceId: ID!) {
     deleteWorkspace(workspaceId: $workspaceId)
   }
 `;
