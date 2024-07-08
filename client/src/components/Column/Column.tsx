@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 
@@ -33,7 +33,7 @@ const Column = (props: IProps) => {
   const [taskName, setTaskName] = useState<string>("");
   const { deleteColumn } = useDeleteColumn(workspaceId!);
   const { mutate: renameColumn } = useRenameColumn();
-  const { createTask, loading } = useCreateTask(id);
+  const { createTask, loading: createTaskLoading } = useCreateTask(id);
   const { data, refetch } = useGetTasksByColumn(id);
   const { moveTask } = useMoveTask(id);
 
@@ -55,7 +55,11 @@ const Column = (props: IProps) => {
   const handleCloseDialog = () => setIsOpen(false);
 
   const handleSubmit = () => {
-    createTask({ columnId: id, name: taskName });
+    createTask({
+      columnId: id,
+      name: taskName,
+      rank: data?.getTasksByColumn?.length ?? 0,
+    });
     setTaskName("");
   };
 
@@ -94,7 +98,7 @@ const Column = (props: IProps) => {
 
       <Grid item>
         <IconButton
-          disabled={loading}
+          disabled={createTaskLoading}
           onClick={handleOpenDialog}
           classes={{ root: classes.addButton }}
         >

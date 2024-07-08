@@ -3,10 +3,10 @@ import TaskModel from '../../../models/taskModel'
 
 export const createTask = async (
     _,
-    { columnId, name }: MutationCreateTaskArgs
+    { columnId, name, rank }: MutationCreateTaskArgs
 ) => {
     try {
-        const task = new TaskModel({ columnId, name })
+        const task = new TaskModel({ columnId, name, rank })
         return await task.save()
     } catch (error) {
         console.error(error)

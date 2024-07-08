@@ -8,6 +8,7 @@ import resolvers from '../graphql/resolvers'
 
 import WorkspaceModel from '../models/workspaceModel'
 import ColumnModel from '../models/columnModel'
+import TaskModel from '../models/taskModel'
 
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
@@ -20,6 +21,8 @@ import {
     GET_COLUMNS,
     DELETE_WORKSPACE,
     CREATE_TASK,
+    MOVE_TASK,
+    GET_TASKS_BY_COLUMN,
 } from './utils'
 
 const server = new ApolloServer({
@@ -37,7 +40,7 @@ afterAll(async () => {
 })
 
 // create column
-describe('Given a column name and a workspace id', () => {
+describe('given a column name and a workspace id', () => {
     it('should create column with the same name and workspace id', async () => {
         const result = await server.executeOperation({
             query: CREATE_COLUMN,
@@ -56,7 +59,7 @@ describe('Given a column name and a workspace id', () => {
 })
 
 // Column name should be unique in a workspace
-describe('Given a column name that already exists', () => {
+describe('given a column name that already exists', () => {
     it('should return column with the same name already exisits error', async () => {
         const column = new ColumnModel({
             name: 'new column',
@@ -79,14 +82,58 @@ describe('Given a column name that already exists', () => {
     })
 })
 
+// Get task by column
+describe('given a column id', () => {
+    it('should return all task related to it', async () => {
+        const task1 = new TaskModel({
+            _id: '6365604e5739438d091a2dbd',
+            columnId: '6365604e5739438d091a2dbe',
+            name: 'test 1',
+            rank: 0,
+        })
+
+        const task2 = new TaskModel({
+            _id: '6365604e5739438d091a2dba',
+            columnId: '6365604e5739438d091a2dbe',
+            name: 'test 2',
+            rank: 1,
+        })
+
+        await task1.save()
+        await task2.save()
+
+        const result = await server.executeOperation({
+            query: GET_TASKS_BY_COLUMN,
+            variables: {
+                columnId: '6365604e5739438d091a2dbe',
+            },
+        })
+
+        expect(result.data.getTasksByColumn).toHaveLength(2)
+        expect(result.data.getTasksByColumn[0]).toEqual({
+            id: '6365604e5739438d091a2dbd',
+            columnId: '6365604e5739438d091a2dbe',
+            name: 'test 1',
+            rank: 0,
+        })
+        expect(result.data.getTasksByColumn[1]).toEqual({
+            id: '6365604e5739438d091a2dba',
+            columnId: '6365604e5739438d091a2dbe',
+            name: 'test 2',
+            rank: 1,
+        })
+    })
+})
+
 // Create task
 describe('given a columnId and a task name', () => {
-    it.only('should create and return new task', async () => {
+    it('should create and return new task', async () => {
         const result = await server.executeOperation({
             query: CREATE_TASK,
             variables: {
                 columnId: '6365604e5739438d091a2dbe',
                 name: 'my task',
+                rank: 0,
             },
         })
 
@@ -95,6 +142,32 @@ describe('given a columnId and a task name', () => {
             '6365604e5739438d091a2dbe'
         )
         expect(result.data.createTask).toHaveProperty('name', 'my task')
+        expect(result.data.createTask).toHaveProperty('rank', 0)
+    })
+})
+
+// Move task
+describe('given a taskId and a rank', () => {
+    it('should update task with new rank and return it', async () => {
+        const task = new TaskModel({
+            _id: '6365604e5739438d091a2dfa',
+            columnId: '6365604e5739438d091a2dbe',
+            name: 'test',
+            rank: 0,
+        })
+
+        await task.save()
+
+        const result = await server.executeOperation({
+            query: MOVE_TASK,
+            variables: {
+                columnId: '6365604e5739438d091a2dbe',
+                taskId: '6365604e5739438d091a2dfa',
+                rank: 1,
+            },
+        })
+
+        expect(result.data.moveTask).toHaveProperty('rank', 1)
     })
 })
 
