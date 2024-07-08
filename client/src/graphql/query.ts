@@ -11,7 +11,7 @@ export const GET_ME = gql`
 `;
 
 export const GET_COLUMNS = gql`
-  query GetColumns($workspaceId: String!) {
+  query GetColumns($workspaceId: ID!) {
     getColumns(workspaceId: $workspaceId) {
       id
       name
@@ -20,7 +20,7 @@ export const GET_COLUMNS = gql`
 `;
 
 export const GET_TASKS_BY_COLUMN = gql`
-  query GetTasksByColumn($columnId: String!) {
+  query GetTasksByColumn($columnId: ID!) {
     getTasksByColumn(columnId: $columnId) {
       id
       name
@@ -30,7 +30,7 @@ export const GET_TASKS_BY_COLUMN = gql`
 `;
 
 export const GET_WORKSPACE = gql`
-  query GetWorkspace($userId: String!) {
+  query GetWorkspace($userId: ID!) {
     getWorkspace(userId: $userId) {
       id
       name
