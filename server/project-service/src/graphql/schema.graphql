@@ -6,10 +6,10 @@ type Query {
 
 type Mutation {
     createColumn(name: String!, workspaceId: ID!): Column!
-    deleteColumn(id: String!): Boolean!
-    renameColumn(id: String!, name: String!): Boolean!
+    deleteColumn(id: ID!): Boolean!
+    renameColumn(id: ID!, name: String!): Boolean!
     createTask(columnId: ID!, name: String!, rank: Int!): Task
-    deleteTask(id: String!): Boolean
+    deleteTask(id: ID!): Boolean
     moveTask(taskId: ID!, columnId: ID!, rank: Int!): Task!
     createWorkspace(name: String!, userId: ID!): Workspace
     deleteWorkspace(workspaceId: ID!): Boolean!
