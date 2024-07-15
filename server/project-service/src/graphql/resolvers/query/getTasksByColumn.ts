@@ -5,6 +5,6 @@ export const getTasksByColumn = async (
     _,
     { columnId }: QueryGetTasksByColumnArgs
 ) => {
-    const tasks = await TaskModel.find({ columnId })
+    const tasks = (await TaskModel.find({ columnId })).sort((a, b) => a.rank - b.rank)
     return tasks
 }

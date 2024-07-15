@@ -39,11 +39,12 @@ export const DELETE_TASK = gql`
 `;
 
 export const MOVE_TASK = gql`
-  mutation MoveTask($taskId: ID!, $columnId: ID!) {
-    moveTask(taskId: $taskId, columnId: $columnId) {
+  mutation MoveTask($taskId: ID!, $columnId: ID!, $rank: Int!) {
+    moveTask(taskId: $taskId, columnId: $columnId, rank: $rank) {
       id
       name
       columnId
+      rank
     }
   }
 `;

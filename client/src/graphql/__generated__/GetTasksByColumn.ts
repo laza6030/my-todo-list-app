@@ -12,6 +12,7 @@ export interface GetTasksByColumn_getTasksByColumn {
   id: string;
   name: string;
   columnId: string;
+  rank: number;
 }
 
 export interface GetTasksByColumn {
