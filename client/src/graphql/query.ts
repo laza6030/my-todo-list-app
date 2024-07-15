@@ -25,6 +25,7 @@ export const GET_TASKS_BY_COLUMN = gql`
       id
       name
       columnId
+      rank
     }
   }
 `;

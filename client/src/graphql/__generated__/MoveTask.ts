@@ -12,6 +12,7 @@ export interface MoveTask_moveTask {
   id: string;
   name: string;
   columnId: string;
+  rank: number;
 }
 
 export interface MoveTask {
@@ -21,4 +22,5 @@ export interface MoveTask {
 export interface MoveTaskVariables {
   taskId: string;
   columnId: string;
+  rank: number;
 }
