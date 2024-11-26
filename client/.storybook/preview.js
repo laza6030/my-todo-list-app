@@ -1,6 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { SnackbarProvider } from "notistack";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import { ThemeProvider } from "../src/context/ThemeContext";
@@ -11,11 +13,13 @@ export const withContext = (Story) => (
   <ApolloProvider client={client}>
     <ThemeProvider>
       <StyledEngineProvider injectFirst>
-        <BrowserRouter>
-          <SnackbarProvider>
-            <Story />
-          </SnackbarProvider>
-        </BrowserRouter>
+        <DndProvider backend={HTML5Backend}>
+          <BrowserRouter>
+            <SnackbarProvider>
+              <Story />
+            </SnackbarProvider>
+          </BrowserRouter>
+        </DndProvider>
       </StyledEngineProvider>
     </ThemeProvider>
   </ApolloProvider>

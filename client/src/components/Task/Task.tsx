@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useDrag } from "react-dnd";
+
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+
 import CustomDialog from "../common/CustomDialog";
 import { GetTasksByColumn_getTasksByColumn } from "../../graphql/__generated__/GetTasksByColumn";
 import { useDeleteTask } from "../../hooks";
@@ -44,7 +47,8 @@ const Task = (props: IProps) => {
       onMouseLeave={() => setShowDelete(false)}
       classes={{ root: classes.root }}
     >
-      {name}
+      <Typography classes={{ root: classes.name }}>{name}</Typography>
+
       {showDelete && (
         <IconButton onClick={handleOpenDialog} classes={{ root: classes.icon }}>
           <DeleteIcon />

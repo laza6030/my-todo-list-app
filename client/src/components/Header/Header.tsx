@@ -24,13 +24,13 @@ const Header = () => {
   return (
     <AppBar classes={{ root: classes.appBar }}>
       <Typography classes={{ root: classes.userName }}>
-        <AccountCircleIcon classes={{ root: classes.userIcon }} /> {username}
+        <AccountCircleIcon classes={{ root: classes.icon }} /> {username}
       </Typography>
 
       <SwitchMode />
 
       <IconButton onClick={handleLogout}>
-        <LogoutIcon />
+        <LogoutIcon classes={{ root: classes.icon }} />
       </IconButton>
     </AppBar>
   );

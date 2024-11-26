@@ -7,6 +7,7 @@ import {
 declare module "@mui/material/styles/createPalette" {
   interface TypeBackground {
     disabled: string;
+    secondary: string;
   }
 
   interface PaletteOptions {}

@@ -6,18 +6,21 @@ import IconButton from "@mui/material/IconButton";
 
 import { ThemeContext } from "../../../context/ThemeContext";
 
+import { useStyles } from "./styles";
+
 const SwitchMode = () => {
+  const classes = useStyles();
   const { mode, changeMode } = useContext(ThemeContext);
 
   return (
     <>
       {mode === "dark" ? (
         <IconButton onClick={changeMode}>
-          <LightModeIcon />
+          <LightModeIcon classes={{ root: classes.icon }} />
         </IconButton>
       ) : (
         <IconButton onClick={changeMode}>
-          <DarkModeIcon />
+          <DarkModeIcon classes={{ root: classes.icon }} />
         </IconButton>
       )}
     </>
